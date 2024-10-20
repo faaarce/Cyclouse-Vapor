@@ -1,9 +1,14 @@
 import Vapor
 
-// configures your application
-public func configure(_ app: Application) async throws {
-    // uncomment to serve files from /Public folder
-    // app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
-    // register routes
-    try routes(app)
+
+// Configure your application
+public func configure(_ app: Application) throws {
+  // Register routes
+  try routes(app)
+  
+  // Serve static files
+  app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
 }
+
+// Register your routes
+
