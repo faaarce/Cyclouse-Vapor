@@ -57,10 +57,3 @@ The `configure(_:)` function in `configure.swift` sets up the application:
 
 - Vapor 4.x
 
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License
-
-[Specify your license here]
