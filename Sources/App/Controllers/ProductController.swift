@@ -291,13 +291,8 @@ struct ProductController {
     ]
     
     
-    let allProducts = categories.flatMap { $0.products }
-    let allCategory = Category(categoryName: "All", products: allProducts)
-    var updatedCategories = categories
-    updatedCategories.insert(allCategory, at: 0)
     
-    return ProductResponse(message: "Data fetched successfully", success: true, bikes: Bikes(categories: updatedCategories)
-    )
+    return ProductResponse(message: "Data fetched successfully", success: true, bikes: Bikes(categories: categories))
     
   }()
   
