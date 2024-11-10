@@ -12,6 +12,38 @@ import Vapor
 struct OrderHistoryController {
     static func getOrderHistory(_ req: Request) async throws -> Response {
         let authInfo = try req.auth.require(AuthInfo.self)
+
+        // Fetch orders for the authenticated user
+        let userId = authInfo.userId
+
+        // Access the orders from the CheckoutController
+        let allOrders = CheckoutController.orders
+
+        // Filter orders belonging to the user
+        let userOrders = allOrders.filter { $0.userId == userId }
+
+        // Prepare the response
+        let responseBody = APIResponse(
+            success: true,
+            message: "Order history retrieved successfully",
+            data: userOrders
+        )
+
+        // Encode the response with ISO8601 date formatting
+        let response = Response(status: .ok)
+        let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .iso8601
+        response.headers.add(name: .contentType, value: "application/json")
+        response.body = try .init(data: encoder.encode(responseBody))
+        return response
+    }
+}
+
+
+/*
+struct OrderHistoryController {
+    static func getOrderHistory(_ req: Request) async throws -> Response {
+        let authInfo = try req.auth.require(AuthInfo.self)
         let status = try? req.query.get(String.self, at: "status")
 
         // Fetch orders from database (simulated here)
@@ -36,3 +68,4 @@ struct OrderHistoryController {
            return userOrders
     }
 }
+*/
