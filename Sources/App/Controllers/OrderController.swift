@@ -8,6 +8,42 @@
 import Vapor
 
 struct OrderController {
+  
+  static func getOrderDetails(_ req: Request) async throws -> Response {
+         let authInfo = try req.auth.require(AuthInfo.self)
+
+         // Extract orderId from the URL
+         guard let orderIdString = req.parameters.get("orderId"),
+               let orderId = UUID(uuidString: orderIdString) else {
+             throw Abort(.badRequest, reason: "Invalid order ID")
+         }
+
+         // Find the order
+         guard let order = CheckoutController.mockOrderStorage[orderId] else {
+             throw Abort(.notFound, reason: "Order not found")
+         }
+
+         // Verify the user owns the order
+         guard order.userId == authInfo.userId else {
+             throw Abort(.forbidden, reason: "Not authorized to view this order")
+         }
+
+         // Prepare the response
+         let responseBody = APIResponse(
+             success: true,
+             message: "Order retrieved successfully",
+             data: order
+         )
+
+         // Encode the response with ISO8601 date formatting
+         let response = Response(status: .ok)
+         let encoder = JSONEncoder()
+         encoder.dateEncodingStrategy = .iso8601
+         response.headers.add(name: .contentType, value: "application/json")
+         response.body = try .init(data: encoder.encode(responseBody))
+         return response
+     }
+  
     static func confirmOrder(_ req: Request) async throws -> Response {
         let authInfo = try req.auth.require(AuthInfo.self)
 
