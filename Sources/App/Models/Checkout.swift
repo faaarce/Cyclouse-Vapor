@@ -32,7 +32,7 @@ struct Order: Content {
     let items: [OrderItem]
     let total: Int
     let shippingAddress: String
-    let status: String
+    var status: String
     let createdAt: Date
     let paymentMethod: PaymentMethod
     let paymentDetails: PaymentDetails

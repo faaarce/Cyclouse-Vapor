@@ -10,7 +10,7 @@ import Vapor
 struct CheckoutController {
   static var orders: [Order] = []
 
-    private static var mockOrderStorage: [UUID: Order] = [:]
+     static var mockOrderStorage: [UUID: Order] = [:]
 
   static func checkout(_ req: Request) async throws -> Response {
       let authInfo = try req.auth.require(AuthInfo.self)
