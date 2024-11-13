@@ -56,6 +56,7 @@ struct OrderItem: Content {
     let name: String
     let quantity: Int
     let price: Int
+  let image: String
 }
 
 
