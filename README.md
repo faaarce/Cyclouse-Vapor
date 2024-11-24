@@ -12,23 +12,23 @@ Cyclouse is a Vapor-based API for a bicycle e-commerce platform. It provides end
 
 ## API Endpoints
 
-### Authentication
+### 🔐Authentication
 - POST `/auth/login`: User login
 - POST `/auth/logout`: User logout (requires authentication)
 
-### Products
+### 📦Products
 - GET `/`: Get all products
 - GET `/product`: Get all products (alternative route)
 - GET `/product/:id`: Get product details by ID
 
-### Shopping Cart
+### 🛒Shopping Cart
 - POST `/cart/add`: Add item to cart (requires authentication)
 - GET `/cart`: Get current cart contents (requires authentication)
 
 ### Checkout
 - POST `/checkout`: Process checkout (requires authentication)
 
-### Order History
+### 📋Order History
 - GET `/orders`: Get order history (requires authentication)
 
 ## Models
@@ -52,6 +52,14 @@ The `configure(_:)` function in `configure.swift` sets up the application:
 2. Install Vapor if not already installed
 3. Run `vapor build` to build the project
 4. Run `vapor run serve` to start the server
+
+## Setup & Deployment 🚀
+
+### Start Ngrok Tunnel
+```bash
+# Start tunnel on Vapor's port (8080)
+ngrok http 8080
+
 
 ## Dependencies
 

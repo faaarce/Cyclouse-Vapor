@@ -10,6 +10,7 @@ import Vapor
 
 struct User: Content {
     let id: UUID
+  let name: String
     let email: String
    let phone: String
     let password: String
@@ -23,9 +24,12 @@ struct LoginRequest: Content {
 struct LoginResponse: Content {
     let message: String
     let success: Bool
+  let userId: UUID
+  let name: String
 }
 
 struct RegisterRequest: Content {
+  let name: String
     let email: String
     let phone: String
     let password: String
@@ -35,5 +39,6 @@ struct RegisterRequest: Content {
 struct RegisterResponse: Content {
     let message: String
     let success: Bool
+  let userId: UUID
 }
 

@@ -33,7 +33,7 @@ struct AuthController {
         let response = Response(status: .ok)
         response.headers.add(name: "Authorization", value: authInfoBase64)
         
-        let loginResponse = LoginResponse(message: "User signed in successfully!", success: true)
+      let loginResponse = LoginResponse(message: "User signed in successfully!", success: true, userId: user.id, name: user.name)
         try response.content.encode(loginResponse)
         
         return response
@@ -41,7 +41,7 @@ struct AuthController {
 }
 // Hardcoded users
 var users: [User] = [
-  User(id: UUID(), email: "user@example.com", phone: "5551234", password: "password123")
+  User(id: UUID(), name: "fufufafa", email: "user@example.com", phone: "5551234", password: "password123")
 ]
 
 
@@ -79,6 +79,7 @@ extension AuthController {
         // Create new user
         let newUser = User(
             id: UUID(),
+            name: registerRequest.name,
             email: registerRequest.email,
             phone: registerRequest.phone,
             password: registerRequest.password // In production, hash the password
@@ -104,9 +105,23 @@ extension AuthController {
         let response = Response(status: .ok)
         response.headers.add(name: "Authorization", value: authInfoBase64)
 
-        let registerResponse = RegisterResponse(message: "User registered successfully!", success: true)
+      let registerResponse = RegisterResponse(message: "User registered successfully!", success: true, userId: newUser.id)
         try response.content.encode(registerResponse)
 
         return response
+    }
+}
+
+extension AuthController {
+    static func getUser(req: Request) async throws -> User {
+        guard let userIdStr = req.parameters.get("userId"), let userId = UUID(uuidString: userIdStr) else {
+            throw Abort(.badRequest, reason: "Invalid user ID")
+        }
+
+        guard let user = users.first(where: { $0.id == userId }) else {
+            throw Abort(.notFound, reason: "User not found")
+        }
+
+        return user
     }
 }

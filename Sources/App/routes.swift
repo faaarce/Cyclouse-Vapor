@@ -13,9 +13,10 @@ func routes(_ app: Application) throws {
   app.post("auth", "login", use: AuthController.login)
   authGroup.post("login", use: AuthController.login)
   authGroup.post("register", use: AuthController.register)
+  app.get("user", ":userId", use: AuthController.getUser)
   // Cart routes (protected by auth middleware)
   let cartGroup = app.grouped(AuthMiddleware())
-
+  cartGroup.get("user", ":userId", use: AuthController.getUser)
   cartGroup.post("cart", "add", use: CartController.addToCart)
   cartGroup.post("auth", "logout", use: AuthController.logout)
   cartGroup.get("cart", use: CartController.getCart)
