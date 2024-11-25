@@ -59,7 +59,6 @@ The `configure(_:)` function in `configure.swift` sets up the application:
 ```bash
 # Start tunnel on Vapor's port (8080)
 ngrok http 8080
-
 ```
 ## Dependencies
 

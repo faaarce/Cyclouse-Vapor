@@ -125,3 +125,45 @@ extension AuthController {
         return user
     }
 }
+
+// Add to AuthController.swift
+extension AuthController {
+    static func updateProfile(req: Request) async throws -> Response {
+        // Get user ID from parameters
+        guard let userIdStr = req.parameters.get("userId"),
+              let userId = UUID(uuidString: userIdStr) else {
+            throw Abort(.badRequest, reason: "Invalid user ID")
+        }
+        
+        // Find user index
+        guard let userIndex = users.firstIndex(where: { $0.id == userId }) else {
+            throw Abort(.notFound, reason: "User not found")
+        }
+        
+        // Decode request body
+        let updateRequest = try req.content.decode(EditProfileRequest.self)
+        
+        // Update user
+        let updatedUser = User(
+            id: userId,
+            name: updateRequest.name,
+            email: updateRequest.email,
+            phone: updateRequest.phone,
+            password: users[userIndex].password  // Keep existing password
+        )
+        
+        // Update in users array
+        users[userIndex] = updatedUser
+        
+        // Create response
+        let response = Response(status: .ok)
+        let editResponse = EditProfileResponse(
+            message: "Profile updated successfully!",
+            success: true,
+            data: updatedUser
+        )
+        try response.content.encode(editResponse)
+        
+        return response
+    }
+}

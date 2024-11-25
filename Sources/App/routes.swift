@@ -24,4 +24,5 @@ func routes(_ app: Application) throws {
   cartGroup.get("orders", use: OrderHistoryController.getOrderHistory)
   cartGroup.post("orders", ":orderId", "confirm", use: OrderController.confirmOrder)
   cartGroup.get("orders", ":orderId", use: OrderController.getOrderDetails)
+  cartGroup.put("user", ":userId", "profile", use: AuthController.updateProfile)  
 }
