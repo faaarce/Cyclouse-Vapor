@@ -26,6 +26,8 @@ struct LoginResponse: Content {
     let success: Bool
   let userId: UUID
   let name: String
+  let email: String
+  let phone: String
 }
 
 struct RegisterRequest: Content {

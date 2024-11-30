@@ -33,7 +33,14 @@ struct AuthController {
         let response = Response(status: .ok)
         response.headers.add(name: "Authorization", value: authInfoBase64)
         
-      let loginResponse = LoginResponse(message: "User signed in successfully!", success: true, userId: user.id, name: user.name)
+      let loginResponse = LoginResponse(
+            message: "User signed in successfully!",
+            success: true,
+            userId: user.id,
+            name: user.name,
+            email: user.email,    // Added email
+            phone: user.phone     // Added phone
+        )
         try response.content.encode(loginResponse)
         
         return response

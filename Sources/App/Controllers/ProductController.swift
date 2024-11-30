@@ -60,7 +60,70 @@ struct ProductController {
             price: 28499850,
             brand: "Canyon",
             quantity: 30
-          )
+          ),
+          Product(
+                     id: "FB004",
+                     name: "Gravel Bike",
+                     description: "Versatile bike designed for both road and light off-road riding.",
+                     images: Array(repeating: "https://i.imgur.com/DXv1ptr.jpeg", count: 5),
+                     price: 25999850,
+                     brand: "Specialized",
+                     quantity: 25
+                   ),
+                   Product(
+                     id: "FB005",
+                     name: "BMX Bike",
+                     description: "Sturdy bike built for tricks and street riding.",
+                     images: Array(repeating: "https://i.imgur.com/DXv1ptr.jpeg", count: 5),
+                     price: 8999850,
+                     brand: "GT Bikes",
+                     quantity: 20
+                   ),
+                   Product(
+                     id: "FB006",
+                     name: "Touring Bike",
+                     description: "Long-distance bike designed for comfort and cargo capacity.",
+                     images: Array(repeating: "https://i.imgur.com/DXv1ptr.jpeg", count: 5),
+                     price: 19999850,
+                     brand: "Surly",
+                     quantity: 15
+                   ),
+                   Product(
+                     id: "FB007",
+                     name: "Track Bike",
+                     description: "High-performance bike designed for velodrome racing.",
+                     images: Array(repeating: "https://i.imgur.com/DXv1ptr.jpeg", count: 5),
+                     price: 31999850,
+                     brand: "Felt",
+                     quantity: 10
+                   ),
+                   Product(
+                     id: "FB008",
+                     name: "City Bike",
+                     description: "Comfortable bike with upright riding position for urban commuting.",
+                     images: Array(repeating: "https://i.imgur.com/DXv1ptr.jpeg", count: 5),
+                     price: 15999850,
+                     brand: "Giant",
+                     quantity: 35
+                   ),
+                   Product(
+                     id: "FB009",
+                     name: "Cyclocross Bike",
+                     description: "Race-oriented bike designed for mixed-terrain cycling.",
+                     images: Array(repeating: "https://i.imgur.com/DXv1ptr.jpeg", count: 5),
+                     price: 27999850,
+                     brand: "Cannondale",
+                     quantity: 18
+                   ),
+                   Product(
+                     id: "FB010",
+                     name: "Electric Bike",
+                     description: "Pedal-assist bike for effortless urban commuting.",
+                     images: Array(repeating: "https://i.imgur.com/DXv1ptr.jpeg", count: 5),
+                     price: 35999850,
+                     brand: "Rad Power",
+                     quantity: 22
+                   )
         ]
       ),
       Category(
@@ -95,7 +158,82 @@ struct ProductController {
             price: 689850,
             brand: "RaceFace",
             quantity: 30
-          )
+          ),
+          Product(
+                id: "HB003",
+                name: "Carbon Drop Bar",
+                description: "Professional-grade carbon fiber drop bar offering superior vibration dampening and aerodynamic positioning for road cycling excellence.",
+                images: [
+                  "https://i.imgur.com/DXv1ptr.jpeg",
+                  "https://i.imgur.com/DXv1ptr.jpeg",
+                  "https://i.imgur.com/DXv1ptr.jpeg",
+                  "https://i.imgur.com/DXv1ptr.jpeg",
+                  "https://i.imgur.com/DXv1ptr.jpeg",
+                ],
+                price: 2499850,
+                brand: "ENVE",
+                quantity: 15
+              ),
+              Product(
+                id: "HB004",
+                name: "Pursuit Bar Pro",
+                description: "Track-specific pursuit handlebar with aggressive geometry, perfect for velodrome racing and time trials with optimized aerodynamic profile.",
+                images: [
+                  "https://i.imgur.com/DXv1ptr.jpeg",
+                  "https://i.imgur.com/DXv1ptr.jpeg",
+                  "https://i.imgur.com/DXv1ptr.jpeg",
+                  "https://i.imgur.com/DXv1ptr.jpeg",
+                  "https://i.imgur.com/DXv1ptr.jpeg",
+                ],
+                price: 1299850,
+                brand: "Deda Elementi",
+                quantity: 20
+              ),
+              Product(
+                id: "HB005",
+                name: "Riser Bar Elite",
+                description: "Wide mountain bike handlebar with 35mm rise, providing enhanced control and leverage for technical trail riding and downhill sections.",
+                images: [
+                  "https://i.imgur.com/DXv1ptr.jpeg",
+                  "https://i.imgur.com/DXv1ptr.jpeg",
+                  "https://i.imgur.com/DXv1ptr.jpeg",
+                  "https://i.imgur.com/DXv1ptr.jpeg",
+                  "https://i.imgur.com/DXv1ptr.jpeg",
+                ],
+                price: 949850,
+                brand: "Renthal",
+                quantity: 25
+              ),
+              Product(
+                id: "HB006",
+                name: "Gravel Adventure Bar",
+                description: "Specialized flared drop bar designed for gravel riding, featuring wider drops for enhanced stability and multiple hand positions during long adventures.",
+                images: [
+                  "https://i.imgur.com/DXv1ptr.jpeg",
+                  "https://i.imgur.com/DXv1ptr.jpeg",
+                  "https://i.imgur.com/DXv1ptr.jpeg",
+                  "https://i.imgur.com/DXv1ptr.jpeg",
+                  "https://i.imgur.com/DXv1ptr.jpeg",
+                ],
+                price: 1099850,
+                brand: "Salsa",
+                quantity: 20
+              ),
+              Product(
+                id: "HB007",
+                name: "Compact Drop Bar",
+                description: "Ergonomic aluminum drop bar with shorter reach and shallow drops, ideal for riders seeking comfort without sacrificing performance.",
+                images: [
+                  "https://i.imgur.com/DXv1ptr.jpeg",
+                  "https://i.imgur.com/DXv1ptr.jpeg",
+                  "https://i.imgur.com/DXv1ptr.jpeg",
+                  "https://i.imgur.com/DXv1ptr.jpeg",
+                  "https://i.imgur.com/DXv1ptr.jpeg",
+                ],
+                price: 799850,
+                brand: "Zipp",
+                quantity: 30
+              )
         ]
       ),
       Category(
@@ -130,7 +268,52 @@ struct ProductController {
             price: 1199850,
             brand: "Fizik",
             quantity: 30
-          )
+          ),
+          Product(
+                id: "SD003",
+                name: "Carbon Pro Saddle",
+                description: "Professional-grade carbon fiber saddle for competitive cycling.",
+                images: Array(repeating: "https://i.imgur.com/DXv1ptr.jpeg", count: 5),
+                price: 1899850,
+                brand: "Selle Italia",
+                quantity: 20
+              ),
+              Product(
+                id: "SD004",
+                name: "Women's Ergonomic Saddle",
+                description: "Anatomically designed saddle specifically for female cyclists.",
+                images: Array(repeating: "https://i.imgur.com/DXv1ptr.jpeg", count: 5),
+                price: 899850,
+                brand: "Terry",
+                quantity: 25
+              ),
+              Product(
+                id: "SD005",
+                name: "Touring Saddle Pro",
+                description: "Extra-wide comfort saddle with gel padding for long tours.",
+                images: Array(repeating: "https://i.imgur.com/DXv1ptr.jpeg", count: 5),
+                price: 749850,
+                brand: "Selle Royal",
+                quantity: 30
+              ),
+              Product(
+                id: "SD006",
+                name: "Track Racing Saddle",
+                description: "Minimalist design for velodrome and track racing.",
+                images: Array(repeating: "https://i.imgur.com/DXv1ptr.jpeg", count: 5),
+                price: 1299850,
+                brand: "Prologo",
+                quantity: 15
+              ),
+              Product(
+                id: "SD007",
+                name: "MTB All-Terrain Saddle",
+                description: "Durable saddle designed for rough mountain bike trails.",
+                images: Array(repeating: "https://i.imgur.com/DXv1ptr.jpeg", count: 5),
+                price: 849850,
+                brand: "WTB",
+                quantity: 25
+                )
         ]
       ),
       Category(
@@ -150,7 +333,52 @@ struct ProductController {
             price: 449850,
             brand: "Mks",
             quantity: 30
-          )
+          ),
+          Product(
+             id: "PD002",
+             name: "Clipless Road Pedal",
+             description: "Professional road cycling pedals with precise engagement mechanism.",
+             images: Array(repeating: "https://i.imgur.com/VbpNW4V.jpeg", count: 5),
+             price: 1249850,
+             brand: "Shimano",
+             quantity: 25
+           ),
+           Product(
+             id: "PD003",
+             name: "MTB SPD Pedal",
+             description: "Dual-sided mountain bike pedals with reliable mud-shedding design.",
+             images: Array(repeating: "https://i.imgur.com/VbpNW4V.jpeg", count: 5),
+             price: 899850,
+             brand: "Crank Brothers",
+             quantity: 20
+           ),
+           Product(
+             id: "PD004",
+             name: "Track Racing Pedal",
+             description: "Lightweight pedals with integrated toe clips for track cycling.",
+             images: Array(repeating: "https://i.imgur.com/VbpNW4V.jpeg", count: 5),
+             price: 749850,
+             brand: "Look",
+             quantity: 15
+           ),
+           Product(
+             id: "PD005",
+             name: "Platform Pedal Pro",
+             description: "Premium flat pedals with replaceable pins for maximum grip.",
+             images: Array(repeating: "https://i.imgur.com/VbpNW4V.jpeg", count: 5),
+             price: 599850,
+             brand: "Race Face",
+             quantity: 30
+           ),
+           Product(
+             id: "PD006",
+             name: "Touring Combo Pedal",
+             description: "Versatile pedal with platform on one side and SPD on the other.",
+             images: Array(repeating: "https://i.imgur.com/VbpNW4V.jpeg", count: 5),
+             price: 849850,
+             brand: "Shimano",
+             quantity: 25
+           )
         ]
       ),
       Category(
@@ -170,7 +398,52 @@ struct ProductController {
             price: 524850,
             brand: "Thomson",
             quantity: 30
-          )
+          ),
+          Product(
+                id: "SP002",
+                name: "Carbon Elite Seatpost",
+                description: "Ultra-lightweight carbon fiber seatpost for racing bikes.",
+                images: Array(repeating: "https://i.imgur.com/Ur38Csn.png", count: 5),
+                price: 1299850,
+                brand: "ENVE",
+                quantity: 20
+              ),
+              Product(
+                id: "SP003",
+                name: "Dropper Seatpost",
+                description: "Hydraulic dropper post for mountain bikes with remote lever.",
+                images: Array(repeating: "https://i.imgur.com/Ur38Csn.png", count: 5),
+                price: 1899850,
+                brand: "RockShox",
+                quantity: 25
+              ),
+              Product(
+                id: "SP004",
+                name: "Aero Carbon Seatpost",
+                description: "Aerodynamically optimized seatpost for time trial bikes.",
+                images: Array(repeating: "https://i.imgur.com/Ur38Csn.png", count: 5),
+                price: 1499850,
+                brand: "Profile Design",
+                quantity: 15
+              ),
+              Product(
+                id: "SP005",
+                name: "Suspension Seatpost",
+                description: "Comfort-focused seatpost with built-in suspension mechanism.",
+                images: Array(repeating: "https://i.imgur.com/Ur38Csn.png", count: 5),
+                price: 899850,
+                brand: "Cane Creek",
+                quantity: 20
+              ),
+              Product(
+                id: "SP006",
+                name: "Titanium Seatpost",
+                description: "Premium titanium seatpost offering durability and light weight.",
+                images: Array(repeating: "https://i.imgur.com/Ur38Csn.png", count: 5),
+                price: 1699850,
+                brand: "Moots",
+                quantity: 10
+              )
         ]
       ),
       Category(
