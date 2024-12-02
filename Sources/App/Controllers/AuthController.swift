@@ -4,21 +4,24 @@
 //
 //  Created by yoga arie on 29/09/24.
 //
-
+import Fluent
 import Vapor
 
 struct AuthController {
     static func login(req: Request) async throws -> Response {
         let loginRequest = try req.content.decode(LoginRequest.self)
         
-        // Check if the email and password match the hardcoded user
-        guard let user = users.first(where: { $0.email == loginRequest.email && $0.password == loginRequest.password }) else {
-            throw Abort(.unauthorized, reason: "Invalid credentials")
-        }
+      // Fetch the user from the database
+           guard let user = try await User.query(on: req.db)
+               .filter(\.$email == loginRequest.email)
+               .filter(\.$password == loginRequest.password)
+               .first() else {
+                   throw Abort(.unauthorized, reason: "Invalid credentials")
+           }
         
         // Create AuthInfo
         let authInfo = AuthInfo(
-            userId: user.id,
+          userId: user.id ?? UUID(),
             expires: Date().addingTimeInterval(86400), // 1 day from now
             email: user.email
         )
@@ -36,7 +39,7 @@ struct AuthController {
       let loginResponse = LoginResponse(
             message: "User signed in successfully!",
             success: true,
-            userId: user.id,
+            userId: user.id ?? UUID(),
             name: user.name,
             email: user.email,    // Added email
             phone: user.phone     // Added phone
@@ -77,12 +80,14 @@ extension AuthController {
         guard registerRequest.password == registerRequest.confirmPassword else {
             throw Abort(.badRequest, reason: "Passwords do not match")
         }
+      
+      if try await User.query(on: req.db)
+               .filter(\.$email == registerRequest.email)
+               .first() != nil {
+               throw Abort(.badRequest, reason: "User with this email already exists")
+           }
 
-        // Check if user already exists
-        if users.contains(where: { $0.email == registerRequest.email }) {
-            throw Abort(.badRequest, reason: "User with this email already exists")
-        }
-
+    
         // Create new user
         let newUser = User(
             id: UUID(),
@@ -93,11 +98,11 @@ extension AuthController {
         )
 
         // Add user to users array
-        users.append(newUser)
+      try await newUser.save(on: req.db)
 
         // Create AuthInfo
         let authInfo = AuthInfo(
-            userId: newUser.id,
+          userId: newUser.id ?? UUID(),
             expires: Date().addingTimeInterval(86400), // 1 day from now
             email: newUser.email
         )
@@ -112,7 +117,7 @@ extension AuthController {
         let response = Response(status: .ok)
         response.headers.add(name: "Authorization", value: authInfoBase64)
 
-      let registerResponse = RegisterResponse(message: "User registered successfully!", success: true, userId: newUser.id)
+      let registerResponse = RegisterResponse(message: "User registered successfully!", success: true, userId: newUser.id ?? UUID())
         try response.content.encode(registerResponse)
 
         return response
@@ -174,3 +179,4 @@ extension AuthController {
         return response
     }
 }
+
