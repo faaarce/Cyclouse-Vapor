@@ -140,43 +140,52 @@ extension AuthController {
 
 // Add to AuthController.swift
 extension AuthController {
-    static func updateProfile(req: Request) async throws -> Response {
-        // Get user ID from parameters
-        guard let userIdStr = req.parameters.get("userId"),
-              let userId = UUID(uuidString: userIdStr) else {
-            throw Abort(.badRequest, reason: "Invalid user ID")
-        }
-        
-        // Find user index
-        guard let userIndex = users.firstIndex(where: { $0.id == userId }) else {
-            throw Abort(.notFound, reason: "User not found")
-        }
-        
-        // Decode request body
-        let updateRequest = try req.content.decode(EditProfileRequest.self)
-        
-        // Update user
-        let updatedUser = User(
-            id: userId,
-            name: updateRequest.name,
-            email: updateRequest.email,
-            phone: updateRequest.phone,
-            password: users[userIndex].password  // Keep existing password
-        )
-        
-        // Update in users array
-        users[userIndex] = updatedUser
-        
-        // Create response
-        let response = Response(status: .ok)
-        let editResponse = EditProfileResponse(
-            message: "Profile updated successfully!",
-            success: true,
-            data: updatedUser
-        )
-        try response.content.encode(editResponse)
-        
-        return response
+  static func updateProfile(req: Request) async throws -> Response {
+    // Get user ID from parameters and verify it's valid
+    guard let userIdStr = req.parameters.get("userId"),
+          let userId = UUID(uuidString: userIdStr) else {
+      throw Abort(.badRequest, reason: "Invalid user ID format")
     }
+    
+    // Decode the update request
+    let updateRequest = try req.content.decode(EditProfileRequest.self)
+    
+    // Start a database transaction to ensure data consistency
+    return try await req.db.transaction { database -> Response in
+      // First, check if the user exists
+      guard let user = try await User.find(userId, on: database) else {
+        throw Abort(.notFound, reason: "User not found")
+      }
+      
+      // If email is being changed, check if the new email is already taken
+      if user.email != updateRequest.email {
+        if try await User.query(on: database)
+          .filter(\.$email == updateRequest.email)
+          .first() != nil {
+          throw Abort(.badRequest, reason: "Email address is already in use")
+        }
+      }
+      
+      // Update user fields
+      user.name = updateRequest.name
+      user.email = updateRequest.email
+      user.phone = updateRequest.phone
+      // Note: We keep the existing password
+      
+      // Save the updated user to database
+      try await user.save(on: database)
+      
+      // Create success response
+      let response = Response(status: .ok)
+      let editResponse = EditProfileResponse(
+        message: "Profile updated successfully!",
+        success: true,
+        data: user
+      )
+      try response.content.encode(editResponse)
+      
+      return response
+    }
+  }
+  
 }
-
