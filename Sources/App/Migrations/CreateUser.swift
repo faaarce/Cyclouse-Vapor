@@ -2,9 +2,9 @@
 //  File.swift
 //  Cyclouse
 //
-//  Created by yoga arie on 30/11/24.
+//  Created by yoga arie on 22/03/25.
 //
-
+// Sources/App/Migrations/CreateUser.swift
 import Fluent
 
 struct CreateUser: Migration {
@@ -15,7 +15,9 @@ struct CreateUser: Migration {
             .field("email", .string, .required)
             .field("phone", .string, .required)
             .field("password", .string, .required)
-            .unique(on: "email") 
+            .field("created_at", .datetime)
+            .field("updated_at", .datetime)
+            .unique(on: "email")
             .create()
     }
 
@@ -23,7 +25,3 @@ struct CreateUser: Migration {
         return database.schema("users").delete()
     }
 }
-
-
-
-

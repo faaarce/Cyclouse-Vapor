@@ -1,24 +1,29 @@
 import Vapor
 import Fluent
 import FluentPostgresDriver
+import JWT
 
 // Configure your application
 public func configure(_ app: Application) throws {
   // Register routes
-  app.databases.use(.postgres(
-      hostname: Environment.get("DATABASE_HOST") ?? "localhost",
-      port: Environment.get("DATABASE_PORT").flatMap(Int.init(_:)) ?? 5432,
-      username: "postgres",  // Hardcode the correct username here
-      password: "cyclouse123",  // Hardcode the correct password here
-      database: "cyclouse_db"  // Use the correct database name
-  ), as: .psql)
+  app.jwt.signers.use(.hs256(key: Environment.get("JWT_SECRET") ?? "cyclouse-temporary-secret"))
+    
+  app.databases.use(.postgres(hostname: "localhost", port: 5434, username: "cyclouse_user", password: "mypassword", database: "cyclousedb"), as: .psql)
 
+  app.migrations.add(CreateUser())
+  app.migrations.add(CreateAuthToken())
+  app.migrations.add(CreateProductCategory())
+  app.migrations.add(CreateProduct())
+  app.migrations.add(CreateProductImage())
+  app.migrations.add(CreateCart())
+  app.migrations.add(CreateCartItem())
+  app.migrations.add(CreateOrder())
+  app.migrations.add(CreateOrderItem())
 
-  // Configure migrations
-  app.migrations.add(CreateUser())  // We'll create this migration next
-//  app.migrations.add(CreateOrderMigration())
-  // Run migrations
-  try app.autoMigrate().wait()
+  // Add the database seeder
+  app.migrations.add(DatabaseSeeder())
+
+//  try app.autoMigrate().wait()
 
   
   try routes(app)

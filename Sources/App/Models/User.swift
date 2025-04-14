@@ -7,9 +7,10 @@
 
 import Fluent
 import Vapor
+import FluentPostgresDriver
 
 final class User: Model, Content {
-    static let schema = "users"  // This will be your table name
+    static let schema = "users"
     
     @ID(key: .id)
     var id: UUID?
@@ -26,6 +27,21 @@ final class User: Model, Content {
     @Field(key: "password")
     var password: String
     
+    @Timestamp(key: "created_at", on: .create)
+    var createdAt: Date?
+    
+    @Timestamp(key: "updated_at", on: .update)
+    var updatedAt: Date?
+    
+    @Children(for: \.$user)
+    var authTokens: [AuthToken]
+    
+    @Children(for: \.$user)
+    var orders: [Order]
+    
+    @Children(for: \.$user)
+    var cart: [Cart]
+    
     init() {}
     
     init(id: UUID? = nil, name: String, email: String, phone: String, password: String) {
@@ -36,32 +52,3 @@ final class User: Model, Content {
         self.password = password
     }
 }
-
-struct LoginRequest: Content {
-    let email: String
-    let password: String
-}
-
-struct LoginResponse: Content {
-    let message: String
-    let success: Bool
-  let userId: UUID
-  let name: String
-  let email: String
-  let phone: String
-}
-
-struct RegisterRequest: Content {
-  let name: String
-    let email: String
-    let phone: String
-    let password: String
-    let confirmPassword: String
-}
-
-struct RegisterResponse: Content {
-    let message: String
-    let success: Bool
-  let userId: UUID
-}
-
