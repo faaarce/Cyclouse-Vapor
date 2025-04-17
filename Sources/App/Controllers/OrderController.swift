@@ -19,7 +19,7 @@ struct OrderController: RouteCollection {
     routes.post("checkout", use: checkout)
   }
   // Get all orders for the authenticated user
-  func getOrders(req: Request) async throws -> OrderListResponseDTO {
+  /*func getOrders(req: Request) async throws -> OrderListResponseDTO {
       let payload = try req.auth.require(AuthPayload.self)
       guard let userId = UUID(payload.sub.value) else {
           throw Abort(.badRequest, reason: "Invalid user ID in token")
@@ -52,6 +52,74 @@ struct OrderController: RouteCollection {
           data: OrderListDataDTO(
               orders: orderResponses
           )
+      )
+  }*/
+  func getOrders(req: Request) async throws -> OrderListResponseDTO {
+      let payload = try req.auth.require(AuthPayload.self)
+      guard let userId = UUID(payload.sub.value) else {
+          throw Abort(.badRequest, reason: "Invalid user ID in token")
+      }
+      
+      // Fetch all orders for this user
+      let orders = try await Order.query(on: req.db)
+          .filter(\.$user.$id == userId)
+          .sort(\.$createdAt, .descending)
+          .all()
+      
+      // Create full OrderHistory objects instead of just summaries
+      var orderHistories: [OrderHistoryDTO] = []
+      for order in orders {
+          // Fetch items for each order
+          let items = try await order.$items.query(on: req.db).all()
+          
+          // Map items to the expected DTO format
+          let itemDTOs = items.map { item in
+              OrderItemDetailDTO(
+                  productId: item.$product.id,
+                  name: item.name,
+                  price: item.price,
+                  quantity: item.quantity,
+                  image: item.image
+              )
+          }
+          
+          // Date formatting for nullable date
+          let expiryDateString: String?
+          if let expiryDate = order.paymentDetailsExpiryDate {
+              expiryDateString = ISO8601DateFormatter().string(from: expiryDate)
+          } else {
+              expiryDateString = nil
+          }
+          
+          // Create the complete order history object
+          let orderHistory = OrderHistoryDTO(
+              orderId: order.id!.uuidString,
+              items: itemDTOs,
+              total: order.total,
+              createdAt: ISO8601DateFormatter().string(from: order.createdAt ?? Date()),
+              shippingAddress: order.shippingAddress,
+              status: order.status,
+              userId: userId.uuidString,
+              paymentMethod: PaymentMethodDetailDTO(
+                  type: order.paymentMethodType,
+                  bank: order.paymentMethodBank
+              ),
+              paymentDetails: PaymentDetailsDetailDTO(
+                  amount: order.paymentDetailsAmount,
+                  virtualAccountNumber: order.paymentDetailsVirtualAccount,
+                  expiryDate: expiryDateString,
+                  bank: order.paymentMethodBank
+              )
+          )
+          
+          orderHistories.append(orderHistory)
+      }
+      
+      // Return the response with the direct array in 'data'
+      return OrderListResponseDTO(
+          success: true,
+          message: "Orders retrieved successfully",
+          data: orderHistories
       )
   }
   

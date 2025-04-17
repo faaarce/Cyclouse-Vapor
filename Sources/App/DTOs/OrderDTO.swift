@@ -167,7 +167,7 @@ struct OrderStatusUpdateDataDTO: Content {
 struct OrderListResponseDTO: Content {
     let success: Bool
     let message: String
-    let data: OrderListDataDTO
+    let data: [OrderHistoryDTO] 
 }
 
 struct OrderListDataDTO: Content {
@@ -180,4 +180,16 @@ struct OrderSummaryDTO: Content {
     let total: Int
     let itemCount: Int
     let createdAt: String
+}
+
+struct OrderHistoryDTO: Content {
+    let orderId: String
+    let items: [OrderItemDetailDTO]  // Reuse your existing DTO
+    let total: Int
+    let createdAt: String
+    let shippingAddress: String
+    let status: String
+    let userId: String
+    let paymentMethod: PaymentMethodDetailDTO
+    let paymentDetails: PaymentDetailsDetailDTO
 }

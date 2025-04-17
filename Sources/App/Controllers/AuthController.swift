@@ -14,6 +14,7 @@ struct AuthController: RouteCollection {
         let auth = routes.grouped("auth")
         auth.post("register", use: register)
         auth.post("login", use: login)
+      auth.post("logout", use: logout)
     }
     
     func register(req: Request) async throws -> Response {
@@ -62,12 +63,12 @@ struct AuthController: RouteCollection {
 //      response.headers.add(name: "Authorization", value: "Bearer \(token)")
         response.headers.bearerAuthorization = BearerAuthorization(token: token)
         
-      try response.content.encode(AuthResponse(
-                 success: true,
-                 message: "User registered successfully!",
-                 userId: user.id!.uuidString
-             ))
-        
+      try response.content.encode(AuthResponse.registered(
+            userId: user.id!.uuidString,
+            email: user.email,
+            phone: user.phone ?? "",
+            name: user.name
+        ))
         return response
     }
     
@@ -97,14 +98,40 @@ struct AuthController: RouteCollection {
         let response = Response(status: .ok)
         response.headers.bearerAuthorization = BearerAuthorization(token: token)
         
-        try response.content.encode(RegisterResponse(
-          success: true,
-          message: "User registered successfully!",
-          userId: user.id!.uuidString
-      ))
+      try response.content.encode(AuthResponse.loggedIn(
+             userId: user.id!.uuidString,
+             email: user.email,
+             phone: user.phone ?? "",
+             name: user.name
+         ))
         
         return response
     }
+  
+   func logout(req: Request) async throws -> Response {
+         guard let authHeader = req.headers.first(name: .authorization),
+               authHeader.hasPrefix("Bearer ") else {
+             throw Abort(.unauthorized, reason: "Missing or invalid Authorization header")
+         }
+
+         let token = String(authHeader.dropFirst(7)) // Remove "Bearer " prefix
+
+         // Invalidate the token (e.g., add it to a blacklist)
+         TokenBlacklist.shared.invalidateToken(token)
+
+         // Return a response indicating the user has been logged out successfully
+         let response = Response(status: .ok)
+         try response.content.encode(AuthResponse(
+             success: true,
+             message: "Logged out successfully",
+             userId: "",
+             email: "",
+             phone: "",
+             name: ""
+         ))
+
+         return response
+     }
 }
 
 
