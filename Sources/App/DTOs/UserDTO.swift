@@ -24,6 +24,49 @@ struct UserRegisterRequest: Content, Validatable {
     }
 }
 
+struct ForgotPasswordRequest: Content, Validatable {
+    let email: String
+    
+    static func validations(_ validations: inout Validations) {
+        validations.add("email", as: String.self, is: .email)
+    }
+}
+
+
+struct VerifyOTPRequest: Content, Validatable {
+    let email: String
+    let code: String
+    
+    static func validations(_ validations: inout Validations) {
+        validations.add("email", as: String.self, is: .email)
+      validations.add("code", as: String.self, is: .count(2...4))
+    }
+}
+
+struct VerifyOTPResponse: Content {
+    let success: Bool
+    let message: String
+    let resetToken: String
+}
+
+struct ResetPasswordRequest: Content, Validatable {
+    let email: String
+    let code: String
+    let newPassword: String
+    
+    static func validations(_ validations: inout Validations) {
+        validations.add("email", as: String.self, is: .email)
+        validations.add("code", as: String.self, is: .count(2...4))
+        validations.add("newPassword", as: String.self, is: .count(8...))
+       
+    }
+}
+
+struct SimpleResponse: Content {
+    let success: Bool
+    let message: String
+}
+
 struct UserLoginRequest: Content, Validatable {
     let email: String
     let password: String

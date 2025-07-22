@@ -19,7 +19,7 @@ public func configure(_ app: Application) throws {
   app.migrations.add(CreateCartItem())
   app.migrations.add(CreateOrder())
   app.migrations.add(CreateOrderItem())
-
+  app.migrations.add(AddShippingFieldsToOrders())
   // Add the database seeder
   app.migrations.add(DatabaseSeeder())
 

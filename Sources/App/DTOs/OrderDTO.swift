@@ -26,10 +26,15 @@ struct CheckoutRequest: Content {
         let type: String
         let bank: String?
     }
+  
+  struct ShippingMethod: Content {
+    let type: String
+  }
     
     let items: [Item]
     let shippingAddress: ShippingAddress
     let paymentMethod: PaymentMethod
+  let shippingMethod: ShippingMethod
 }
 
 struct OrderItemResponse: Content {
@@ -103,7 +108,9 @@ struct CheckoutResponseDataDTO: Content {
     let items: [CheckoutResponseItemDTO]
     let paymentMethod: CheckoutResponsePaymentMethodDTO
     let paymentDetails: CheckoutResponsePaymentDetailsDTO
+  let shipping: ShippingInfoDTO
     let total: Int
+  let productSubtotal: Int
     let createdAt: String
 }
 
@@ -182,6 +189,15 @@ struct OrderSummaryDTO: Content {
     let createdAt: String
 }
 
+// New DTO for shipping information
+struct ShippingInfoDTO: Content {
+    let type: String
+    let typeName: String
+    let cost: Int
+    let estimatedDays: String
+    let estimatedDeliveryDate: String
+}
+
 struct OrderHistoryDTO: Content {
     let orderId: String
     let items: [OrderItemDetailDTO]  // Reuse your existing DTO
@@ -192,4 +208,21 @@ struct OrderHistoryDTO: Content {
     let userId: String
     let paymentMethod: PaymentMethodDetailDTO
     let paymentDetails: PaymentDetailsDetailDTO
+  let shipping: ShippingInfoDTO
+}
+
+// API endpoint for getting shipping options
+struct ShippingOptionDTO: Content {
+    let type: String
+    let name: String
+    let estimatedDays: String
+    let cost: Int
+    let description: String
+    let isPopular: Bool  // For "TERPOPULER" badge
+}
+
+struct ShippingOptionsResponseDTO: Content {
+    let success: Bool
+    let message: String
+    let data: [ShippingOptionDTO]
 }

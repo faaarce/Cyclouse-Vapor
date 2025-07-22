@@ -23,6 +23,15 @@ final class Order: Model, Content {
     
     @Field(key: "shipping_address")
     var shippingAddress: String
+  
+  @Field(key: "shipping_type")
+  var shippingType: String
+  
+  @Field(key: "shipping_cost")
+  var shippingCost: Int
+  
+  @Field(key: "shipping_estimated_days")
+  var shippingEstimatedDays: String
     
     @Field(key: "payment_method_type")
     var paymentMethodType: String
@@ -58,6 +67,9 @@ final class Order: Model, Content {
         userId: UUID,
         status: String,
         shippingAddress: String,
+        shippingType: String,
+               shippingCost: Int,
+               shippingEstimatedDays: String,
         paymentMethodType: String,
         paymentMethodBank: String? = nil,
         paymentDetailsAmount: Int,
@@ -69,6 +81,9 @@ final class Order: Model, Content {
         self.$user.id = userId
         self.status = status
         self.shippingAddress = shippingAddress
+      self.shippingType = shippingType
+             self.shippingCost = shippingCost
+             self.shippingEstimatedDays = shippingEstimatedDays
         self.paymentMethodType = paymentMethodType
         self.paymentMethodBank = paymentMethodBank
         self.paymentDetailsAmount = paymentDetailsAmount

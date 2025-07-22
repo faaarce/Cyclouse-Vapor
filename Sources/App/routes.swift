@@ -32,6 +32,7 @@ func routes(_ app: Application) throws {
   // Register controllers
   try app.register(collection: AuthController())
   try app.register(collection: ProductController())
+  try app.register(collection: ShippingController()) 
   
   // Protected routes
   let protected = app.grouped(JWTAuthenticator())
@@ -39,5 +40,5 @@ func routes(_ app: Application) throws {
   try protected.register(collection: CartController())
   try protected.register(collection: OrderController())
   try protected.register(collection: UserController())
-
+  
 }

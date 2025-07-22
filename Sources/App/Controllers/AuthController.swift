@@ -15,6 +15,11 @@ struct AuthController: RouteCollection {
         auth.post("register", use: register)
         auth.post("login", use: login)
       auth.post("logout", use: logout)
+      
+      
+      auth.post("forgot-password", use: forgotPassword)
+             auth.post("verify-code", use: verifyOTP)
+             auth.post("reset-password", use: resetPassword)
     }
     
     func register(req: Request) async throws -> Response {
@@ -134,6 +139,77 @@ struct AuthController: RouteCollection {
      }
 }
 
+// Add these methods to your existing AuthController
 
-
+extension AuthController {
+    
+    func forgotPassword(req: Request) async throws -> SimpleResponse {
+        try ForgotPasswordRequest.validate(content: req)
+        let forgotRequest = try req.content.decode(ForgotPasswordRequest.self)
+        
+        // Check if user exists
+        guard try await User.query(on: req.db)
+            .filter(\.$email == forgotRequest.email)
+            .first() != nil else {
+            throw Abort(.notFound, reason: "User with this email not found")
+        }
+        
+        // Generate OTP (always "123456")
+        let otp = OTPService.shared.generateOTP(for: forgotRequest.email)
+        
+        req.logger.info("OTP for \(forgotRequest.email): \(otp)")
+        
+        return SimpleResponse(
+            success: true,
+            message: "Verification code sent. Use: 1234"
+        )
+    }
+    
+    func verifyOTP(req: Request) async throws -> SimpleResponse {
+        try VerifyOTPRequest.validate(content: req)
+        let verifyRequest = try req.content.decode(VerifyOTPRequest.self)
+        
+        // Verify OTP
+        guard OTPService.shared.verifyOTP(email: verifyRequest.email, code: verifyRequest.code) else {
+            throw Abort(.badRequest, reason: "Invalid verification code. Use: 1234")
+        }
+        
+        return SimpleResponse(
+            success: true,
+            message: "Code verified successfully"
+        )
+    }
+    
+    func resetPassword(req: Request) async throws -> SimpleResponse {
+        try ResetPasswordRequest.validate(content: req)
+        let resetRequest = try req.content.decode(ResetPasswordRequest.self)
+        
+        // Verify OTP again
+        guard OTPService.shared.verifyOTP(email: resetRequest.email, code: resetRequest.code) else {
+            throw Abort(.badRequest, reason: "Invalid verification code. Use: 1234")
+        }
+        
+        // Find user
+        guard let user = try await User.query(on: req.db)
+            .filter(\.$email == resetRequest.email)
+            .first() else {
+            throw Abort(.notFound, reason: "User not found")
+        }
+        
+        // Hash new password
+        let hashedPassword = try Bcrypt.hash(resetRequest.newPassword)
+        
+        // Update password
+        user.password = hashedPassword
+        try await user.save(on: req.db)
+        
+        // Remove OTP
+        OTPService.shared.removeOTP(for: resetRequest.email)
+        
+        return SimpleResponse(
+            success: true,
+            message: "Password reset successfully"
+        )
+    }
+}
 

@@ -90,6 +90,33 @@ struct OrderController: RouteCollection {
           } else {
               expiryDateString = nil
           }
+        
+        // Calculate estimated delivery date for historical orders
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "dd MMMM yyyy"
+                dateFormatter.locale = Locale(identifier: "id_ID")
+                
+                var estimatedDeliveryDate = ""
+                if let createdAt = order.createdAt {
+                    switch order.shippingType {
+                    case "same_day":
+                        estimatedDeliveryDate = dateFormatter.string(from: createdAt)
+                    case "express":
+                        let deliveryDate = Calendar.current.date(byAdding: .day, value: 2, to: createdAt)!
+                        estimatedDeliveryDate = dateFormatter.string(from: deliveryDate)
+                    default:
+                        let deliveryDate = Calendar.current.date(byAdding: .day, value: 5, to: createdAt)!
+                        estimatedDeliveryDate = dateFormatter.string(from: deliveryDate)
+                    }
+                }
+                
+                // Map shipping type to display name
+                let shippingTypeName = switch order.shippingType {
+                    case "same_day": "Same Day"
+                    case "express": "Express"
+                    default: "Regular"
+                }
+                
           
           // Create the complete order history object
           let orderHistory = OrderHistoryDTO(
@@ -109,7 +136,13 @@ struct OrderController: RouteCollection {
                   virtualAccountNumber: order.paymentDetailsVirtualAccount,
                   expiryDate: expiryDateString,
                   bank: order.paymentMethodBank
-              )
+              ),  shipping: ShippingInfoDTO(
+                type: order.shippingType,
+                typeName: shippingTypeName,
+                cost: order.shippingCost,
+                estimatedDays: order.shippingEstimatedDays,
+                estimatedDeliveryDate: estimatedDeliveryDate
+            )
           )
           
           orderHistories.append(orderHistory)
@@ -137,12 +170,24 @@ struct OrderController: RouteCollection {
       throw Abort(.badRequest, reason: "No items in checkout")
     }
     
+    // Define shipping options (same as in ShippingController)
+      let shippingOptions: [String: (name: String, cost: Int, days: String)] = [
+          "regular": ("Regular", 25000, "3-5 hari kerja"),
+          "express": ("Express", 45000, "1-2 hari kerja"),
+          "same_day": ("Same Day", 75000, "Hari ini")
+      ]
+      
+      // Validate shipping method
+      guard let selectedShipping = shippingOptions[checkoutRequest.shippingMethod.type] else {
+          throw Abort(.badRequest, reason: "Invalid shipping method")
+      }
+    
     // Format shipping address
     let formattedAddress = "\(checkoutRequest.shippingAddress.street), \(checkoutRequest.shippingAddress.city), \(checkoutRequest.shippingAddress.state) \(checkoutRequest.shippingAddress.zipCode), \(checkoutRequest.shippingAddress.country)"
     
     // Create order
     let orderId = UUID()
-    var totalAmount = 0
+    var productSubtotal = 0
     
     // Verify products and calculate total
     var orderItemDetails: [(Product, Int)] = []
@@ -157,10 +202,14 @@ struct OrderController: RouteCollection {
       }
       
       let itemTotal = product.price * item.quantity
-      totalAmount += itemTotal
+      productSubtotal += itemTotal
       
       orderItemDetails.append((product, item.quantity))
     }
+    
+    // Calculate total with shipping
+       let shippingCost = selectedShipping.cost
+       let totalAmount = productSubtotal + shippingCost
     
     // Generate virtual account number (simulated)
     let virtualAccountNumber = String(format: "%012d", Int.random(in: 100000000...999999999))
@@ -171,6 +220,9 @@ struct OrderController: RouteCollection {
       userId: userId,
       status: "pending",
       shippingAddress: formattedAddress,
+      shippingType: checkoutRequest.shippingMethod.type,
+            shippingCost: shippingCost,
+            shippingEstimatedDays: selectedShipping.days,
       paymentMethodType: checkoutRequest.paymentMethod.type,
       paymentMethodBank: checkoutRequest.paymentMethod.bank,
       paymentDetailsAmount: totalAmount,
@@ -198,8 +250,8 @@ struct OrderController: RouteCollection {
       try await orderItem.save(on: req.db)
       
       // Update product stock (optional, depending on your business logic)
-      // product.quantity -= quantity
-      // try await product.save(on: req.db)
+       product.quantity -= quantity
+       try await product.save(on: req.db)
     }
     
     // Fetch the complete order with items for response
@@ -216,6 +268,24 @@ struct OrderController: RouteCollection {
         image: item.image
       )
     }
+    
+    // Calculate estimated delivery date
+      let estimatedDeliveryDate: String
+      let dateFormatter = DateFormatter()
+      dateFormatter.dateFormat = "dd MMMM yyyy"
+      dateFormatter.locale = Locale(identifier: "id_ID")
+      
+      switch checkoutRequest.shippingMethod.type {
+      case "same_day":
+          estimatedDeliveryDate = "Hari ini"
+      case "express":
+          let deliveryDate = Calendar.current.date(byAdding: .day, value: 2, to: Date())!
+          estimatedDeliveryDate = dateFormatter.string(from: deliveryDate)
+      default: // regular
+          let deliveryDate = Calendar.current.date(byAdding: .day, value: 5, to: Date())!
+          estimatedDeliveryDate = dateFormatter.string(from: deliveryDate)
+      }
+      
     
     // Use the proper response struct instead of dictionary
     return CheckoutResponseDTO(
@@ -236,8 +306,14 @@ struct OrderController: RouteCollection {
           virtualAccountNumber: virtualAccountNumber,
           expiryDate: ISO8601DateFormatter().string(from: order.paymentDetailsExpiryDate!),
           bank: checkoutRequest.paymentMethod.bank
-        ),
-        total: totalAmount,
+        ),  shipping: ShippingInfoDTO(
+          type: checkoutRequest.shippingMethod.type,
+          typeName: selectedShipping.name,
+          cost: shippingCost,
+          estimatedDays: selectedShipping.days,
+          estimatedDeliveryDate: estimatedDeliveryDate
+      ),
+        total: totalAmount, productSubtotal: productSubtotal,
         createdAt: ISO8601DateFormatter().string(from: order.createdAt ?? Date())
       )
     )
