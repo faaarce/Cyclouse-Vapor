@@ -22,6 +22,7 @@ public func configure(_ app: Application) throws {
   app.migrations.add(AddShippingFieldsToOrders())
   // Add the database seeder
   app.migrations.add(DatabaseSeeder())
+  app.migrations.add(UpdateProductDescriptionsToStructuredFormat())
 
 //  try app.autoMigrate().wait()
 

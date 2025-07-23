@@ -81,417 +81,413 @@ struct DatabaseSeeder: AsyncMigration {
     }
     
     // Define product data (your existing definitions)
-    let fullBikes = [Product(
-      id: "FB001",
-      categoryId: "FB",
-      name: "Fixie Bike",
-      description: "Sleek and minimalist fixed-gear bike for urban riding.",
-      brand: "Cinelli Histogram",
-      price: 11999850,
-      quantity: 30
-    ),
-                     Product(
-                      id: "FB002",
-                      categoryId: "FB",
-                      name: "Mountain Bike",
-                      description: "Full-suspension mountain bike for all terrains.",
-                      brand: "Trek",
-                      price: 22499850,
-                      quantity: 30
-                     ),
-                     Product(
-                      id: "FB003",
-                      categoryId: "FB",
-                      name: "Road Bike",
-                      description: "Lightweight road bike built for speed and endurance.",
-                      brand: "Canyon",
-                      price: 28499850,
-                      quantity: 30
-                     ),
-                     Product(
-                      id: "FB004",
-                      categoryId: "FB",
-                      name: "Gravel Bike",
-                      description: "Versatile bike designed for both road and light off-road riding.",
-                      brand: "Specialized",
-                      price: 25999850,
-                      quantity: 25
-                     ),
-                     Product(
-                      id: "FB005",
-                      categoryId: "FB",
-                      name: "BMX Bike",
-                      description: "Sturdy bike built for tricks and street riding.",
-                      brand: "GT Bikes",
-                      price: 8999850,
-                      quantity: 20
-                     ),
-                     Product(
-                      id: "FB006",
-                      categoryId: "FB",
-                      name: "Touring Bike",
-                      description: "Long-distance bike designed for comfort and cargo capacity.",
-                      brand: "Surly",
-                      price: 19999850,
-                      quantity: 15
-                     ),
-                     Product(
-                      id: "FB007",
-                      categoryId: "FB",
-                      name: "Track Bike",
-                      description: "High-performance bike designed for velodrome racing.",
-                      brand: "Felt",
-                      price: 31999850,
-                      quantity: 10
-                     ),
-                     Product(
-                      id: "FB008",
-                      categoryId: "FB",
-                      name: "City Bike",
-                      description: "Comfortable bike with upright riding position for urban commuting.",
-                      brand: "Giant",
-                      price: 15999850,
-                      quantity: 35
-                     ),
-                     Product(
-                      id: "FB009",
-                      categoryId: "FB",
-                      name: "Cyclocross Bike",
-                      description: "Race-oriented bike designed for mixed-terrain cycling.",
-                      brand: "Cannondale",
-                      price: 27999850,
-                      quantity: 18
-                     ),
-                     Product(
-                      id: "FB010",
-                      categoryId: "FB",
-                      name: "Electric Bike",
-                      description: "Pedal-assist bike for effortless urban commuting.",
-                      brand: "Rad Power",
-                      price: 35999850,
-                      quantity: 22
-                     )]
-    let handlebars = [Product(
-      id: "HB001",
-      categoryId: "HB",
-      name: "Bullhorn Handlebar",
-      description: "Aerodynamic handlebar popular for fixie bikes.",
-      brand: "Cinelli",
-      price: 824850,
-      quantity: 30
-    ),
-                      Product(
-                        id: "HB002",
-                        categoryId: "HB",
-                        name: "Flat Handlebar",
-                        description: "Flat bar for precision handling and control.",
-                        brand: "RaceFace",
-                        price: 689850,
-                        quantity: 30
-                      ),
-                      Product(
-                        id: "HB003",
-                        categoryId: "HB",
-                        name: "Carbon Drop Bar",
-                        description: "Professional-grade carbon fiber drop bar offering superior vibration dampening and aerodynamic positioning for road cycling excellence.",
-                        brand: "ENVE",
-                        price: 2499850,
-                        quantity: 15
-                      ),
-                      Product(
-                        id: "HB004",
-                        categoryId: "HB",
-                        name: "Pursuit Bar Pro",
-                        description: "Track-specific pursuit handlebar with aggressive geometry, perfect for velodrome racing and time trials with optimized aerodynamic profile.",
-                        brand: "Deda Elementi",
-                        price: 1299850,
-                        quantity: 20
-                      ),
-                      Product(
-                        id: "HB005",
-                        categoryId: "HB",
-                        name: "Riser Bar Elite",
-                        description: "Wide mountain bike handlebar with 35mm rise, providing enhanced control and leverage for technical trail riding and downhill sections.",
-                        brand: "Renthal",
-                        price: 949850,
-                        quantity: 25
-                      ),
-                      Product(
-                        id: "HB006",
-                        categoryId: "HB",
-                        name: "Gravel Adventure Bar",
-                        description: "Specialized flared drop bar designed for gravel riding, featuring wider drops for enhanced stability and multiple hand positions during long adventures.",
-                        brand: "Salsa",
-                        price: 1099850,
-                        quantity: 20
-                      ),
-                      Product(
-                        id: "HB007",
-                        categoryId: "HB",
-                        name: "Compact Drop Bar",
-                        description: "Ergonomic aluminum drop bar with shorter reach and shallow drops, ideal for riders seeking comfort without sacrificing performance.",
-                        brand: "Zipp",
-                        price: 799850,
-                        quantity: 30
-                      )]
-    
+    let fullBikes = [
+        Product(
+            id: "FB001",
+            categoryId: "FB",
+            name: "Fixie Bike",
+            description: "Overview:\nAn iconic high-performance track bike designed for aggressive street riding and competitive criterium racing. Its race-proven geometry delivers sharp, responsive handling for the ultimate fixed-gear experience.\n\nKey Specifications:\n* Model Year: 2025\n* Origin: Designed in Italy, Manufactured in Taiwan\n* Material: Columbus Airplane Aluminum Alloy Frame",
+            brand: "Cinelli Histogram",
+            price: 11999850,
+            quantity: 30
+        ),
+        Product(
+            id: "FB002",
+            categoryId: "FB",
+            name: "Mountain Bike",
+            description: "Overview:\nA versatile full-suspension trail bike engineered for confident climbing and capable descending on any terrain. Its modern geometry and premium suspension provide the ultimate all-around mountain biking experience.\n\nKey Specifications:\n* Model Year: 2024\n* Origin: Designed in USA, Manufactured in Taiwan\n* Material: Alpha Platinum Aluminum Frame",
+            brand: "Trek",
+            price: 22499850,
+            quantity: 30
+        ),
+        Product(
+            id: "FB003",
+            categoryId: "FB",
+            name: "Road Bike",
+            description: "Overview:\nA cutting-edge aero road bike that combines lightweight construction with wind-cheating performance. Engineered for competitive cyclists who demand speed without compromising comfort on long rides.\n\nKey Specifications:\n* Model Year: 2024\n* Origin: Designed in Germany, Manufactured in Germany\n* Material: Advanced Grade Carbon Fiber Frame",
+            brand: "Canyon",
+            price: 28499850,
+            quantity: 30
+        ),
+        Product(
+            id: "FB004",
+            categoryId: "FB",
+            name: "Gravel Bike",
+            description: "Overview:\nAn adventure-ready gravel bike built to explore beyond the pavement. Its versatile design handles everything from smooth tarmac to rough forest trails, making it the perfect companion for endless exploration.\n\nKey Specifications:\n* Model Year: 2024\n* Origin: Designed in USA, Manufactured in Taiwan\n* Material: FACT 10r Carbon Fiber Frame",
+            brand: "Specialized",
+            price: 25999850,
+            quantity: 25
+        ),
+        Product(
+            id: "FB005",
+            categoryId: "FB",
+            name: "BMX Bike",
+            description: "Overview:\nA bombproof freestyle BMX bike engineered for street riding, park sessions, and dirt jumping. Its reinforced construction and responsive geometry make it ideal for riders pushing the limits of what's possible.\n\nKey Specifications:\n* Model Year: 2024\n* Origin: Designed in USA, Manufactured in Taiwan\n* Material: 100% Chromoly Steel Frame",
+            brand: "GT Bikes",
+            price: 8999850,
+            quantity: 20
+        ),
+        Product(
+            id: "FB006",
+            categoryId: "FB",
+            name: "Touring Bike",
+            description: "Overview:\nA robust expedition touring bike designed for self-supported adventures and long-distance journeys. Built to carry heavy loads while maintaining comfort and stability across thousands of miles.\n\nKey Specifications:\n* Model Year: 2024\n* Origin: Designed in USA, Manufactured in USA\n* Material: 4130 Chromoly Steel Frame",
+            brand: "Surly",
+            price: 19999850,
+            quantity: 15
+        ),
+        Product(
+            id: "FB007",
+            categoryId: "FB",
+            name: "Track Bike",
+            description: "Overview:\nA professional-grade track racing bike optimized for velodrome competition. Its ultra-stiff carbon construction and aggressive geometry deliver maximum power transfer for explosive sprints and sustained speed.\n\nKey Specifications:\n* Model Year: 2024\n* Origin: Designed in USA, Manufactured in USA\n* Material: TeXtreme High-Modulus Carbon Frame",
+            brand: "Felt",
+            price: 31999850,
+            quantity: 10
+        ),
+        Product(
+            id: "FB008",
+            categoryId: "FB",
+            name: "City Bike",
+            description: "Overview:\nA practical urban commuter bike designed for daily transportation and casual rides. Its upright riding position, integrated accessories, and low-maintenance design make city cycling effortless and enjoyable.\n\nKey Specifications:\n* Model Year: 2024\n* Origin: Designed in Taiwan, Manufactured in Taiwan\n* Material: ALUXX Aluminum Alloy Frame",
+            brand: "Giant",
+            price: 15999850,
+            quantity: 35
+        ),
+        Product(
+            id: "FB009",
+            categoryId: "FB",
+            name: "Cyclocross Bike",
+            description: "Overview:\nA race-bred cyclocross bike built to dominate muddy courses and technical terrain. Its nimble handling and robust construction excel in the demanding conditions of competitive cross racing.\n\nKey Specifications:\n* Model Year: 2024\n* Origin: Designed in USA, Manufactured in USA\n* Material: BallisTec Hi-MOD Carbon Frame",
+            brand: "Cannondale",
+            price: 27999850,
+            quantity: 18
+        ),
+        Product(
+            id: "FB010",
+            categoryId: "FB",
+            name: "Electric Bike",
+            description: "Overview:\nA powerful electric cargo bike designed to replace car trips and revolutionize urban transportation. Its high-capacity battery and robust motor make hauling kids, groceries, or gear effortless.\n\nKey Specifications:\n* Model Year: 2024\n* Origin: Designed in USA, Manufactured in Vietnam\n* Material: 6061 Aluminum Frame with Integrated Battery",
+            brand: "Rad Power",
+            price: 35999850,
+            quantity: 22
+        )
+    ]
+
+    let handlebars = [
+        Product(
+            id: "HB001",
+            categoryId: "HB",
+            name: "Bullhorn Handlebar",
+            description: "Overview:\nA classic pursuit-style handlebar favored by urban fixed-gear riders and track cyclists. Its forward-reaching design provides an aggressive riding position while maintaining excellent control in traffic.\n\nKey Specifications:\n* Model Year: 2024\n* Origin: Designed in Italy, Manufactured in Italy\n* Material: 6061-T6 Aluminum Alloy",
+            brand: "Cinelli",
+            price: 824850,
+            quantity: 30
+        ),
+        Product(
+            id: "HB002",
+            categoryId: "HB",
+            name: "Flat Handlebar",
+            description: "Overview:\nA precision-engineered flat bar designed for mountain biking and aggressive trail riding. Its wide stance and subtle backsweep provide optimal control and leverage on technical terrain.\n\nKey Specifications:\n* Model Year: 2024\n* Origin: Designed in Canada, Manufactured in Canada\n* Material: 7050 Aluminum with Shot-Peened Finish",
+            brand: "RaceFace",
+            price: 689850,
+            quantity: 30
+        ),
+        Product(
+            id: "HB003",
+            categoryId: "HB",
+            name: "Carbon Drop Bar",
+            description: "Overview:\nA professional-grade carbon fiber drop bar offering superior vibration dampening and aerodynamic positioning for road cycling excellence. Its ergonomic shape reduces hand fatigue on long rides while maintaining racing performance.\n\nKey Specifications:\n* Model Year: 2024\n* Origin: Designed in USA, Manufactured in USA\n* Material: High-Modulus Carbon Fiber",
+            brand: "ENVE",
+            price: 2499850,
+            quantity: 15
+        ),
+        Product(
+            id: "HB004",
+            categoryId: "HB",
+            name: "Pursuit Bar Pro",
+            description: "Overview:\nA track-specific pursuit handlebar with aggressive geometry, perfect for velodrome racing and time trials. Its wind-tunnel-tested profile minimizes drag while providing stable handling at high speeds.\n\nKey Specifications:\n* Model Year: 2024\n* Origin: Designed in Italy, Manufactured in Italy\n* Material: Scandium-Enhanced Aluminum Alloy",
+            brand: "Deda Elementi",
+            price: 1299850,
+            quantity: 20
+        ),
+        Product(
+            id: "HB005",
+            categoryId: "HB",
+            name: "Riser Bar Elite",
+            description: "Overview:\nA wide mountain bike handlebar with 35mm rise, providing enhanced control and leverage for technical trail riding and downhill sections. Its reinforced construction withstands the most demanding riding conditions.\n\nKey Specifications:\n* Model Year: 2024\n* Origin: Designed in UK, Manufactured in UK\n* Material: 7-Series Aluminum with Hard Anodized Finish",
+            brand: "Renthal",
+            price: 949850,
+            quantity: 25
+        ),
+        Product(
+            id: "HB006",
+            categoryId: "HB",
+            name: "Gravel Adventure Bar",
+            description: "Overview:\nA specialized flared drop bar designed for gravel riding, featuring wider drops for enhanced stability and multiple hand positions during long adventures. Its unique shape provides comfort without sacrificing control.\n\nKey Specifications:\n* Model Year: 2024\n* Origin: Designed in USA, Manufactured in Taiwan\n* Material: 6066-T6 Aluminum with Vibration-Damping Treatment",
+            brand: "Salsa",
+            price: 1099850,
+            quantity: 20
+        ),
+        Product(
+            id: "HB007",
+            categoryId: "HB",
+            name: "Compact Drop Bar",
+            description: "Overview:\nAn ergonomic aluminum drop bar with shorter reach and shallow drops, ideal for riders seeking comfort without sacrificing performance. Its modern design suits both competitive and recreational road cycling.\n\nKey Specifications:\n* Model Year: 2024\n* Origin: Designed in USA, Manufactured in USA\n* Material: 7075 Aluminum with Service Course Finish",
+            brand: "Zipp",
+            price: 799850,
+            quantity: 30
+        )
+    ]
+
     let saddles = [
-      Product(
-        id: "SD001",
-        categoryId: "SD",
-        name: "Comfort Saddle",
-        description: "Padded seat for long-distance comfort.",
-        brand: "Brooks",
-        price: 599850,
-        quantity: 30
-      ),
-      Product(
-        id: "SD002",
-        categoryId: "SD",
-        name: "Racing Saddle",
-        description: "Lightweight saddle optimized for speed.",
-        brand: "Fizik",
-        price: 1199850,
-        quantity: 30
-      ),
-      Product(
-        id: "SD003",
-        categoryId: "SD",
-        name: "Carbon Pro Saddle",
-        description: "Professional-grade carbon fiber saddle for competitive cycling.",
-        brand: "Selle Italia",
-        price: 1899850,
-        quantity: 20
-      ),
-      Product(
-        id: "SD004",
-        categoryId: "SD",
-        name: "Women's Ergonomic Saddle",
-        description: "Anatomically designed saddle specifically for female cyclists.",
-        brand: "Terry",
-        price: 899850,
-        quantity: 25
-      ),
-      Product(
-        id: "SD005",
-        categoryId: "SD",
-        name: "Touring Saddle Pro",
-        description: "Extra-wide comfort saddle with gel padding for long tours.",
-        brand: "Selle Royal",
-        price: 749850,
-        quantity: 30
-      ),
-      Product(
-        id: "SD006",
-        categoryId: "SD",
-        name: "Track Racing Saddle",
-        description: "Minimalist design for velodrome and track racing.",
-        brand: "Prologo",
-        price: 1299850,
-        quantity: 15
-      ),
-      Product(
-        id: "SD007",
-        categoryId: "SD",
-        name: "MTB All-Terrain Saddle",
-        description: "Durable saddle designed for rough mountain bike trails.",
-        brand: "WTB",
-        price: 849850,
-        quantity: 25
-      )
+        Product(
+            id: "SD001",
+            categoryId: "SD",
+            name: "Comfort Saddle",
+            description: "Overview:\nA heritage leather saddle crafted for long-distance comfort and timeless style. Its suspended design and natural materials provide unmatched comfort that improves with age and use.\n\nKey Specifications:\n* Model Year: 2024\n* Origin: Designed in UK, Manufactured in UK\n* Material: Premium Leather with Steel Rails",
+            brand: "Brooks",
+            price: 599850,
+            quantity: 30
+        ),
+        Product(
+            id: "SD002",
+            categoryId: "SD",
+            name: "Racing Saddle",
+            description: "Overview:\nA lightweight racing saddle engineered for competitive cyclists who demand performance. Its pressure-relief channel and carbon-reinforced shell deliver comfort without compromising power transfer.\n\nKey Specifications:\n* Model Year: 2024\n* Origin: Designed in Italy, Manufactured in Italy\n* Material: Carbon-Reinforced Nylon Shell with K:ium Rails",
+            brand: "Fizik",
+            price: 1199850,
+            quantity: 30
+        ),
+        Product(
+            id: "SD003",
+            categoryId: "SD",
+            name: "Carbon Pro Saddle",
+            description: "Overview:\nA professional-grade carbon fiber saddle designed for elite athletes and weight-conscious riders. Its advanced construction provides optimal support while maintaining an incredibly low weight.\n\nKey Specifications:\n* Model Year: 2024\n* Origin: Designed in Italy, Manufactured in Italy\n* Material: Full Carbon Monocoque Construction",
+            brand: "Selle Italia",
+            price: 1899850,
+            quantity: 20
+        ),
+        Product(
+            id: "SD004",
+            categoryId: "SD",
+            name: "Women's Ergonomic Saddle",
+            description: "Overview:\nAn anatomically designed saddle specifically engineered for female cyclists. Its wider sit-bone support and strategic cutout provide superior comfort for women's unique anatomy.\n\nKey Specifications:\n* Model Year: 2024\n* Origin: Designed in USA, Manufactured in Italy\n* Material: Flex-Tuned Nylon Base with Titanium Rails",
+            brand: "Terry",
+            price: 899850,
+            quantity: 25
+        ),
+        Product(
+            id: "SD005",
+            categoryId: "SD",
+            name: "Touring Saddle Pro",
+            description: "Overview:\nAn extra-wide comfort saddle with advanced gel padding system for ultra-long tours. Its shock-absorbing design and weatherproof construction ensure comfort across thousands of miles.\n\nKey Specifications:\n* Model Year: 2024\n* Origin: Designed in Italy, Manufactured in Italy\n* Material: Royalgel™ Padding with Elastomer Suspension",
+            brand: "Selle Royal",
+            price: 749850,
+            quantity: 30
+        ),
+        Product(
+            id: "SD006",
+            categoryId: "SD",
+            name: "Track Racing Saddle",
+            description: "Overview:\nA minimalist track-specific saddle optimized for velodrome racing and fixed-gear performance. Its narrow profile and firm padding support aggressive riding positions during high-intensity efforts.\n\nKey Specifications:\n* Model Year: 2024\n* Origin: Designed in Italy, Manufactured in Italy\n* Material: Microfiber Cover with Carbon Rails",
+            brand: "Prologo",
+            price: 1299850,
+            quantity: 15
+        ),
+        Product(
+            id: "SD007",
+            categoryId: "SD",
+            name: "MTB All-Terrain Saddle",
+            description: "Overview:\nA durable mountain bike saddle engineered to withstand the rigors of aggressive trail riding. Its reinforced corners and weather-resistant materials excel in harsh off-road conditions.\n\nKey Specifications:\n* Model Year: 2024\n* Origin: Designed in USA, Manufactured in USA\n* Material: Abrasion-Resistant Microfiber with Chromoly Rails",
+            brand: "WTB",
+            price: 849850,
+            quantity: 25
+        )
     ]
-    
-    
-    // --- PEDALS ---
+
     let pedals = [
-      Product(
-        id: "PD001",
-        categoryId: "PD",
-        name: "RX-1",
-        description: "Wide, flat pedals for casual riding and fixies.",
-        brand: "Mks",
-        price: 449850,
-        quantity: 30
-      ),
-      Product(
-        id: "PD002",
-        categoryId: "PD",
-        name: "Clipless Road Pedal",
-        description: "Professional road cycling pedals with precise engagement mechanism.",
-        brand: "Shimano",
-        price: 1249850,
-        quantity: 25
-      ),
-      Product(
-        id: "PD003",
-        categoryId: "PD",
-        name: "MTB SPD Pedal",
-        description: "Dual-sided mountain bike pedals with reliable mud-shedding design.",
-        brand: "Crank Brothers",
-        price: 899850,
-        quantity: 20
-      ),
-      Product(
-        id: "PD004",
-        categoryId: "PD",
-        name: "Track Racing Pedal",
-        description: "Lightweight pedals with integrated toe clips for track cycling.",
-        brand: "Look",
-        price: 749850,
-        quantity: 15
-      ),
-      Product(
-        id: "PD005",
-        categoryId: "PD",
-        name: "Platform Pedal Pro",
-        description: "Premium flat pedals with replaceable pins for maximum grip.",
-        brand: "Race Face",
-        price: 599850,
-        quantity: 30
-      ),
-      Product(
-        id: "PD006",
-        categoryId: "PD",
-        name: "Touring Combo Pedal",
-        description: "Versatile pedal with platform on one side and SPD on the other.",
-        brand: "Shimano",
-        price: 849850,
-        quantity: 25
-      )
+        Product(
+            id: "PD001",
+            categoryId: "PD",
+            name: "RX-1",
+            description: "Overview:\nClassic wide platform pedals favored by urban cyclists and fixed-gear enthusiasts. Their generous platform and sealed bearings provide reliable performance for daily riding and tricks.\n\nKey Specifications:\n* Model Year: 2024\n* Origin: Designed in Japan, Manufactured in Japan\n* Material: CNC-Machined Aluminum Body",
+            brand: "MKS",
+            price: 449850,
+            quantity: 30
+        ),
+        Product(
+            id: "PD002",
+            categoryId: "PD",
+            name: "Clipless Road Pedal",
+            description: "Overview:\nProfessional road cycling pedals featuring a wide platform and adjustable tension for optimal power transfer. Their lightweight design and precise engagement mechanism meet the demands of competitive cycling.\n\nKey Specifications:\n* Model Year: 2024\n* Origin: Designed in Japan, Manufactured in Malaysia\n* Material: Carbon Composite Body with Stainless Steel Plate",
+            brand: "Shimano",
+            price: 1249850,
+            quantity: 25
+        ),
+        Product(
+            id: "PD003",
+            categoryId: "PD",
+            name: "MTB SPD Pedal",
+            description: "Overview:\nDual-sided mountain bike pedals with an open design that sheds mud effortlessly. Their four-sided entry and adjustable release tension make them ideal for technical trail riding.\n\nKey Specifications:\n* Model Year: 2024\n* Origin: Designed in USA, Manufactured in Taiwan\n* Material: Forged Chromoly Steel with Brass Cleats",
+            brand: "Crank Brothers",
+            price: 899850,
+            quantity: 20
+        ),
+        Product(
+            id: "PD004",
+            categoryId: "PD",
+            name: "Track Racing Pedal",
+            description: "Overview:\nLightweight track-specific pedals with integrated toe clips designed for velodrome racing. Their aerodynamic profile and secure retention system maximize power transfer during explosive efforts.\n\nKey Specifications:\n* Model Year: 2024\n* Origin: Designed in France, Manufactured in France\n* Material: Carbon Fiber Body with Titanium Spindle",
+            brand: "Look",
+            price: 749850,
+            quantity: 15
+        ),
+        Product(
+            id: "PD005",
+            categoryId: "PD",
+            name: "Platform Pedal Pro",
+            description: "Overview:\nPremium flat pedals featuring a concave platform and replaceable traction pins for maximum grip. Their thin profile and sealed bearing system excel in demanding freeride and downhill conditions.\n\nKey Specifications:\n* Model Year: 2024\n* Origin: Designed in Canada, Manufactured in Canada\n* Material: 6061-T6 Aluminum with DU Bushing System",
+            brand: "Race Face",
+            price: 599850,
+            quantity: 30
+        ),
+        Product(
+            id: "PD006",
+            categoryId: "PD",
+            name: "Touring Combo Pedal",
+            description: "Overview:\nVersatile dual-function pedals offering clipless efficiency on one side and platform convenience on the other. Perfect for touring cyclists who need flexibility in footwear choices.\n\nKey Specifications:\n* Model Year: 2024\n* Origin: Designed in Japan, Manufactured in Malaysia\n* Material: Aluminum Body with Sealed Bearing Mechanism",
+            brand: "Shimano",
+            price: 849850,
+            quantity: 25
+        )
     ]
-    
-    // --- SEATPOSTS ---
+
     let seatposts = [
-      Product(
-        id: "SP001",
-        categoryId: "SP",
-        name: "Aluminum Seatpost",
-        description: "Lightweight and durable seatpost for various bike types.",
-        brand: "Thomson",
-        price: 524850,
-        quantity: 30
-      ),
-      Product(
-        id: "SP002",
-        categoryId: "SP",
-        name: "Carbon Elite Seatpost",
-        description: "Ultra-lightweight carbon fiber seatpost for racing bikes.",
-        brand: "ENVE",
-        price: 1299850,
-        quantity: 20
-      ),
-      Product(
-        id: "SP003",
-        categoryId: "SP",
-        name: "Dropper Seatpost",
-        description: "Hydraulic dropper post for mountain bikes with remote lever.",
-        brand: "RockShox",
-        price: 1899850,
-        quantity: 25
-      ),
-      Product(
-        id: "SP004",
-        categoryId: "SP",
-        name: "Aero Carbon Seatpost",
-        description: "Aerodynamically optimized seatpost for time trial bikes.",
-        brand: "Profile Design",
-        price: 1499850,
-        quantity: 15
-      ),
-      Product(
-        id: "SP005",
-        categoryId: "SP",
-        name: "Suspension Seatpost",
-        description: "Comfort-focused seatpost with built-in suspension mechanism.",
-        brand: "Cane Creek",
-        price: 899850,
-        quantity: 20
-      ),
-      Product(
-        id: "SP006",
-        categoryId: "SP",
-        name: "Titanium Seatpost",
-        description: "Premium titanium seatpost offering durability and light weight.",
-        brand: "Moots",
-        price: 1699850,
-        quantity: 10
-      )
+        Product(
+            id: "SP001",
+            categoryId: "SP",
+            name: "Aluminum Seatpost",
+            description: "Overview:\nA precision-machined aluminum seatpost renowned for its strength and reliability. Its two-bolt clamp design provides infinite angle adjustment while maintaining bombproof security.\n\nKey Specifications:\n* Model Year: 2024\n* Origin: Designed in USA, Manufactured in USA\n* Material: 7000-Series Aluminum with Hard Anodized Finish",
+            brand: "Thomson",
+            price: 524850,
+            quantity: 30
+        ),
+        Product(
+            id: "SP002",
+            categoryId: "SP",
+            name: "Carbon Elite Seatpost",
+            description: "Overview:\nAn ultra-lightweight carbon fiber seatpost designed for weight-conscious racers. Its vibration-damping properties and aerodynamic profile enhance both comfort and performance.\n\nKey Specifications:\n* Model Year: 2024\n* Origin: Designed in USA, Manufactured in USA\n* Material: High-Modulus Unidirectional Carbon Fiber",
+            brand: "ENVE",
+            price: 1299850,
+            quantity: 20
+        ),
+        Product(
+            id: "SP003",
+            categoryId: "SP",
+            name: "Dropper Seatpost",
+            description: "Overview:\nA hydraulic dropper post offering infinite height adjustment on the fly. Its smooth action and reliable performance transform the riding experience on technical terrain.\n\nKey Specifications:\n* Model Year: 2024\n* Origin: Designed in USA, Manufactured in Taiwan\n* Material: 6061-T6 Aluminum with Sealed Hydraulic Cartridge",
+            brand: "RockShox",
+            price: 1899850,
+            quantity: 25
+        ),
+        Product(
+            id: "SP004",
+            categoryId: "SP",
+            name: "Aero Carbon Seatpost",
+            description: "Overview:\nAn aerodynamically optimized seatpost designed for time trial and triathlon competition. Its truncated airfoil shape reduces drag while maintaining UCI-legal dimensions.\n\nKey Specifications:\n* Model Year: 2024\n* Origin: Designed in USA, Manufactured in Taiwan\n* Material: Wind-Tunnel Tested Carbon Composite",
+            brand: "Profile Design",
+            price: 1499850,
+            quantity: 15
+        ),
+        Product(
+            id: "SP005",
+            categoryId: "SP",
+            name: "Suspension Seatpost",
+            description: "Overview:\nA comfort-focused seatpost featuring an integrated parallelogram suspension system. Its 50mm of travel smooths out rough roads while maintaining efficient pedaling dynamics.\n\nKey Specifications:\n* Model Year: 2024\n* Origin: Designed in USA, Manufactured in USA\n* Material: Forged Aluminum with Elastomer Suspension",
+            brand: "Cane Creek",
+            price: 899850,
+            quantity: 20
+        ),
+        Product(
+            id: "SP006",
+            categoryId: "SP",
+            name: "Titanium Seatpost",
+            description: "Overview:\nA premium titanium seatpost offering the perfect balance of strength, weight, and ride quality. Its natural vibration-damping properties and lifetime durability justify the investment.\n\nKey Specifications:\n* Model Year: 2024\n* Origin: Designed in USA, Manufactured in USA\n* Material: 3Al-2.5V Titanium Alloy",
+            brand: "Moots",
+            price: 1699850,
+            quantity: 10
+        )
     ]
-    
-    // --- STEMS ---
+
     let stems = [
-      Product(
-        id: "ST001",
-        categoryId: "ST",
-        name: "Adjustable Stem",
-        description: "Versatile stem for fine-tuning handlebar position.",
-        brand: "Ritchey",
-        price: 749850,
-        quantity: 30
-      )
+        Product(
+            id: "ST001",
+            categoryId: "ST",
+            name: "Adjustable Stem",
+            description: "Overview:\nA versatile adjustable stem allowing riders to fine-tune their handlebar position for optimal comfort and performance. Its robust construction and tool-free adjustment make it ideal for bike fitting.\n\nKey Specifications:\n* Model Year: 2024\n* Origin: Designed in USA, Manufactured in Taiwan\n* Material: 3D-Forged 6061 Aluminum",
+            brand: "Ritchey",
+            price: 749850,
+            quantity: 30
+        )
     ]
-    
-    // --- CRANKS ---
+
     let cranks = [
-      Product(
-        id: "CR001",
-        categoryId: "CR",
-        name: "Single Speed Crankset",
-        description: "Simplified crankset for fixie and single speed bikes.",
-        brand: "SRAM",
-        price: 1349850,
-        quantity: 30
-      )
+        Product(
+            id: "CR001",
+            categoryId: "CR",
+            name: "Single Speed Crankset",
+            description: "Overview:\nA clean and efficient single-speed crankset designed for urban riding and track cycling. Its stiff construction and narrow Q-factor deliver optimal power transfer for fixed-gear performance.\n\nKey Specifications:\n* Model Year: 2024\n* Origin: Designed in USA, Manufactured in Taiwan\n* Material: Forged 7050 Aluminum with Hard Anodized Finish",
+            brand: "SRAM",
+            price: 1349850,
+            quantity: 30
+        )
     ]
-    
-    // --- WHEELSETS ---
+
     let wheelsets = [
-      Product(
-        id: "WS001",
-        categoryId: "WS",
-        name: "Fixed Gear Wheelset",
-        description: "Durable wheelset for fixed gear and single speed bikes.",
-        brand: "H Plus Son",
-        price: 2999850,
-        quantity: 30
-      )
+        Product(
+            id: "WS001",
+            categoryId: "WS",
+            name: "Fixed Gear Wheelset",
+            description: "Overview:\nA bombproof wheelset built specifically for the demands of fixed-gear and single-speed riding. Its deep-section rims provide aerodynamic advantage while maintaining the strength needed for urban assault.\n\nKey Specifications:\n* Model Year: 2024\n* Origin: Designed in USA, Manufactured in Taiwan\n* Material: 6061-T6 Aluminum Rims with Sealed Bearing Hubs",
+            brand: "H Plus Son",
+            price: 2999850,
+            quantity: 30
+        )
     ]
-    
-    // --- FRAMES ---
+
     let frames = [
-      Product(
-        id: "FR001",
-        categoryId: "FR",
-        name: "Pias Agra",
-        description: "Indonesian local famous frameset developed by sumvelo.",
-        brand: "Surly",
-        price: 4499850,
-        quantity: 30
-      )
+        Product(
+            id: "FR001",
+            categoryId: "FR",
+            name: "Pias Agra",
+            description: "Overview:\nAn Indonesian cycling icon, the Pias Agra frameset represents the pinnacle of local frame building expertise. Developed by Sumvelo, it combines aggressive geometry with versatile mounting options for modern riding.\n\nKey Specifications:\n* Model Year: 2024\n* Origin: Designed in Indonesia, Manufactured in Indonesia\n* Material: Custom-Butted 4130 Chromoly Steel",
+            brand: "Sumvelo",
+            price: 4499850,
+            quantity: 30
+        )
     ]
-    
-    // --- TIRES ---
+
     let tires = [
-      Product(
-        id: "TR001",
-        categoryId: "TR",
-        name: "Urban Commuter Tire",
-        description: "Durable tire with puncture protection for city riding.",
-        brand: "Schwalbe",
-        price: 599850,
-        quantity: 30
-      ),
-      Product(
-        id: "TR002",
-        categoryId: "TR",
-        name: "Mountain Bike Tire",
-        description: "Durable tire designed for off-road cycling.",
-        brand: "Maxxis",
-        price: 449850,
-        quantity: 30
-      )
+        Product(
+            id: "TR001",
+            categoryId: "TR",
+            name: "Urban Commuter Tire",
+            description: "Overview:\nA puncture-resistant tire engineered for city streets and daily commuting. Its reflective sidewalls and reinforced casing provide safety and durability for year-round urban cycling.\n\nKey Specifications:\n* Model Year: 2024\n* Origin: Designed in Germany, Manufactured in Vietnam\n* Material: SmartGuard Puncture Protection Layer",
+            brand: "Schwalbe",
+            price: 599850,
+            quantity: 30
+        ),
+        Product(
+            id: "TR002",
+            categoryId: "TR",
+            name: "Mountain Bike Tire",
+            description: "Overview:\nAn aggressive all-terrain tire designed to excel in diverse trail conditions. Its versatile tread pattern provides confident traction on everything from hardpack to loose terrain.\n\nKey Specifications:\n* Model Year: 2024\n* Origin: Designed in USA, Manufactured in Taiwan\n* Material: Dual-Compound Rubber with EXO Protection",
+            brand: "Maxxis",
+            price: 449850,
+            quantity: 30
+        )
     ]
-    
     // Seed each category independently
     try await seedProducts(fullBikes, category: "Full Bikes")
     try await seedProducts(handlebars, category: "Handlebars")

@@ -29,6 +29,15 @@ func routes(_ app: Application) throws {
       
       return result
   }
+  
+  app.get("check-descriptions") { req async throws -> String in
+      let product = try await Product.find("FB001", on: req.db)
+      if let product = product {
+          let hasNewFormat = product.description.contains("Overview:")
+          return "Product FB001 has \(hasNewFormat ? "NEW" : "OLD") format"
+      }
+      return "Product FB001 not found"
+  }
   // Register controllers
   try app.register(collection: AuthController())
   try app.register(collection: ProductController())
