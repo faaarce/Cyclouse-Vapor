@@ -23,7 +23,7 @@ public func configure(_ app: Application) throws {
   // Add the database seeder
   app.migrations.add(DatabaseSeeder())
   app.migrations.add(UpdateProductDescriptionsToStructuredFormat())
-
+  app.migrations.add(UpdateProductImageURLes())
 //  try app.autoMigrate().wait()
 
   

@@ -7,6 +7,8 @@
 // Sources/App/Seeders/DatabaseSeeder.swift
 import Vapor
 import Fluent
+import Vapor
+import Fluent
 
 struct DatabaseSeeder: AsyncMigration {
   func prepare(on database: Database) async throws {
@@ -42,7 +44,324 @@ struct DatabaseSeeder: AsyncMigration {
     let existingProductIds = Set(existingProducts.compactMap { $0.id })
     print("ℹ️ Found \(existingProductIds.count) existing products")
     
-    // Helper function to seed products and their images by category
+    // Define product-specific image mappings
+       let productImageMap: [String: [String]] = [
+        // Full Bikes
+        "FB001": [
+          "https://i.imgur.com/PGdOUkZ.jpeg",
+          "https://i.imgur.com/PGdOUkZ.jpeg",
+          "https://i.imgur.com/PGdOUkZ.jpeg",
+          "https://i.imgur.com/PGdOUkZ.jpeg",
+          "https://i.imgur.com/PGdOUkZ.jpeg"
+        ],
+        "FB002": [
+          "https://i.imgur.com/AC3e5X0.jpeg",
+          "https://i.imgur.com/AC3e5X0.jpeg",
+          "https://i.imgur.com/AC3e5X0.jpeg",
+          "https://i.imgur.com/AC3e5X0.jpeg",
+          "https://i.imgur.com/AC3e5X0.jpeg"
+        ],
+        "FB003": [
+          "https://i.imgur.com/YpWHDgc.jpeg",
+          "https://i.imgur.com/YpWHDgc.jpeg",
+          "https://i.imgur.com/YpWHDgc.jpeg",
+          "https://i.imgur.com/YpWHDgc.jpeg",
+          "https://i.imgur.com/YpWHDgc.jpeg"
+        ],
+        "FB004": [
+          "https://i.imgur.com/h2baEk5.jpeg",
+          "https://i.imgur.com/h2baEk5.jpeg",
+          "https://i.imgur.com/h2baEk5.jpeg",
+          "https://i.imgur.com/h2baEk5.jpeg",
+          "https://i.imgur.com/h2baEk5.jpeg"
+        ],
+        "FB005": [
+          "https://i.imgur.com/flfx0Bt.jpeg",
+          "https://i.imgur.com/flfx0Bt.jpeg",
+          "https://i.imgur.com/flfx0Bt.jpeg",
+          "https://i.imgur.com/flfx0Bt.jpeg",
+          "https://i.imgur.com/flfx0Bt.jpeg"
+        ],
+        "FB006": [
+          "https://i.imgur.com/HpRaHJL.jpeg",
+          "https://i.imgur.com/HpRaHJL.jpeg",
+          "https://i.imgur.com/HpRaHJL.jpeg",
+          "https://i.imgur.com/HpRaHJL.jpeg",
+          "https://i.imgur.com/HpRaHJL.jpeg"
+        ],
+        "FB007": [
+          "https://i.imgur.com/UL8zzYS.jpeg",
+          "https://i.imgur.com/UL8zzYS.jpeg",
+          "https://i.imgur.com/UL8zzYS.jpeg",
+          "https://i.imgur.com/UL8zzYS.jpeg",
+          "https://i.imgur.com/UL8zzYS.jpeg"
+        ],
+        "FB008": [
+          "https://i.imgur.com/Xhb9Ce9.jpeg",
+          "https://i.imgur.com/Xhb9Ce9.jpeg",
+          "https://i.imgur.com/Xhb9Ce9.jpeg",
+          "https://i.imgur.com/Xhb9Ce9.jpeg",
+          "https://i.imgur.com/Xhb9Ce9.jpeg"
+        ],
+        "FB009": [
+          "https://i.imgur.com/ewgPzQh.jpeg",
+          "https://i.imgur.com/ewgPzQh.jpeg",
+          "https://i.imgur.com/ewgPzQh.jpeg",
+          "https://i.imgur.com/ewgPzQh.jpeg",
+          "https://i.imgur.com/ewgPzQh.jpeg"
+        ],
+        "FB010": [
+          "https://i.imgur.com/iBDRoyM.jpeg",
+          "https://i.imgur.com/iBDRoyM.jpeg",
+          "https://i.imgur.com/iBDRoyM.jpeg",
+          "https://i.imgur.com/iBDRoyM.jpeg",
+          "https://i.imgur.com/iBDRoyM.jpeg"
+        ],
+        
+        // Handlebars
+        "HB001": [
+          "https://i.imgur.com/0y5rNGb.jpeg",
+          "https://i.imgur.com/0y5rNGb.jpeg",
+          "https://i.imgur.com/0y5rNGb.jpeg",
+          "https://i.imgur.com/0y5rNGb.jpeg",
+          "https://i.imgur.com/0y5rNGb.jpeg"
+        ],
+        "HB002": [
+          "https://i.imgur.com/4ZzMuwv.jpeg",
+          "https://i.imgur.com/4ZzMuwv.jpeg",
+          "https://i.imgur.com/4ZzMuwv.jpeg",
+          "https://i.imgur.com/4ZzMuwv.jpeg",
+          "https://i.imgur.com/4ZzMuwv.jpeg"
+        ],
+        "HB003": [
+          "https://i.imgur.com/Cfj9eut.jpeg",
+          "https://i.imgur.com/Cfj9eut.jpeg",
+          "https://i.imgur.com/Cfj9eut.jpeg",
+          "https://i.imgur.com/Cfj9eut.jpeg",
+          "https://i.imgur.com/Cfj9eut.jpeg"
+        ],
+        "HB004": [
+          "https://i.imgur.com/p7UaXb4.jpeg",
+          "https://i.imgur.com/p7UaXb4.jpeg",
+          "https://i.imgur.com/p7UaXb4.jpeg",
+          "https://i.imgur.com/p7UaXb4.jpeg",
+          "https://i.imgur.com/p7UaXb4.jpeg"
+        ],
+        "HB005": [
+          "https://i.imgur.com/MnsntUZ.png",
+          "https://i.imgur.com/MnsntUZ.png",
+          "https://i.imgur.com/MnsntUZ.png",
+          "https://i.imgur.com/MnsntUZ.png",
+          "https://i.imgur.com/MnsntUZ.png"
+        ],
+        "HB006": [
+          "https://i.imgur.com/tTPwtv3.jpeg",
+          "https://i.imgur.com/tTPwtv3.jpeg",
+          "https://i.imgur.com/tTPwtv3.jpeg",
+          "https://i.imgur.com/tTPwtv3.jpeg",
+          "https://i.imgur.com/tTPwtv3.jpeg"
+        ],
+        "HB007": [
+          "https://i.imgur.com/xkZvZWW.jpeg",
+          "https://i.imgur.com/xkZvZWW.jpeg",
+          "https://i.imgur.com/xkZvZWW.jpeg",
+          "https://i.imgur.com/xkZvZWW.jpeg",
+          "https://i.imgur.com/xkZvZWW.jpeg"
+        ],
+        
+        // Saddles
+        "SD001": [
+          "https://i.imgur.com/I1VkV50.png",
+          "https://i.imgur.com/I1VkV50.png",
+          "https://i.imgur.com/I1VkV50.png",
+          "https://i.imgur.com/I1VkV50.png",
+          "https://i.imgur.com/I1VkV50.png"
+        ],
+        "SD002": [
+          "https://i.imgur.com/UvlSItW.png",
+          "https://i.imgur.com/UvlSItW.png",
+          "https://i.imgur.com/UvlSItW.png",
+          "https://i.imgur.com/UvlSItW.png",
+          "https://i.imgur.com/UvlSItW.png"
+        ],
+        "SD003": [
+          "https://i.imgur.com/vdKwwvY.png",
+          "https://i.imgur.com/vdKwwvY.png",
+          "https://i.imgur.com/vdKwwvY.png",
+          "https://i.imgur.com/vdKwwvY.png",
+          "https://i.imgur.com/vdKwwvY.png"
+        ],
+        "SD004": [
+          "https://i.imgur.com/aUfBcdc.jpeg",
+          "https://i.imgur.com/aUfBcdc.jpeg",
+          "https://i.imgur.com/aUfBcdc.jpeg",
+          "https://i.imgur.com/aUfBcdc.jpeg",
+          "https://i.imgur.com/aUfBcdc.jpeg"
+        ],
+        "SD005": [
+          "https://i.imgur.com/94uVJbK.jpeg",
+          "https://i.imgur.com/94uVJbK.jpeg",
+          "https://i.imgur.com/94uVJbK.jpeg",
+          "https://i.imgur.com/94uVJbK.jpeg",
+          "https://i.imgur.com/94uVJbK.jpeg"
+        ],
+        "SD006": [
+          "https://i.imgur.com/PJFsFLd.jpeg",
+          "https://i.imgur.com/PJFsFLd.jpeg",
+          "https://i.imgur.com/PJFsFLd.jpeg",
+          "https://i.imgur.com/PJFsFLd.jpeg",
+          "https://i.imgur.com/PJFsFLd.jpeg"
+        ],
+        "SD007": [
+          "https://i.imgur.com/9vDG2a5.jpeg",
+          "https://i.imgur.com/9vDG2a5.jpeg",
+          "https://i.imgur.com/9vDG2a5.jpeg",
+          "https://i.imgur.com/9vDG2a5.jpeg",
+          "https://i.imgur.com/9vDG2a5.jpeg"
+        ],
+        
+        // Pedals
+        "PD001": [
+          "https://i.imgur.com/bmDiUer.jpeg",
+          "https://i.imgur.com/bmDiUer.jpeg",
+          "https://i.imgur.com/bmDiUer.jpeg",
+          "https://i.imgur.com/bmDiUer.jpeg",
+          "https://i.imgur.com/bmDiUer.jpeg"
+        ],
+        "PD002": [
+          "https://i.imgur.com/NaRCs5m.jpeg",
+          "https://i.imgur.com/NaRCs5m.jpeg",
+          "https://i.imgur.com/NaRCs5m.jpeg",
+          "https://i.imgur.com/NaRCs5m.jpeg",
+          "https://i.imgur.com/NaRCs5m.jpeg"
+        ],
+        "PD003": [
+          "https://i.imgur.com/QnOjBg5.jpeg",
+          "https://i.imgur.com/QnOjBg5.jpeg",
+          "https://i.imgur.com/QnOjBg5.jpeg",
+          "https://i.imgur.com/QnOjBg5.jpeg",
+          "https://i.imgur.com/QnOjBg5.jpeg"
+        ],
+        "PD004": [
+          "https://i.imgur.com/eYevhYK.jpeg",
+          "https://i.imgur.com/eYevhYK.jpeg",
+          "https://i.imgur.com/eYevhYK.jpeg",
+          "https://i.imgur.com/eYevhYK.jpeg",
+          "https://i.imgur.com/eYevhYK.jpeg"
+        ],
+        "PD005": [
+          "https://i.imgur.com/vKcWgYc.jpeg",
+          "https://i.imgur.com/vKcWgYc.jpeg",
+          "https://i.imgur.com/vKcWgYc.jpeg",
+          "https://i.imgur.com/vKcWgYc.jpeg",
+          "https://i.imgur.com/vKcWgYc.jpeg"
+        ],
+        "PD006": [
+          "https://i.imgur.com/4LwQ7TG.png",
+          "https://i.imgur.com/4LwQ7TG.png",
+          "https://i.imgur.com/4LwQ7TG.png",
+          "https://i.imgur.com/4LwQ7TG.png",
+          "https://i.imgur.com/4LwQ7TG.png"
+        ],
+        
+        // Seatposts
+        "SP001": [
+          "https://i.imgur.com/DZBw1ej.jpeg",
+          "https://i.imgur.com/DZBw1ej.jpeg",
+          "https://i.imgur.com/DZBw1ej.jpeg",
+          "https://i.imgur.com/DZBw1ej.jpeg",
+          "https://i.imgur.com/DZBw1ej.jpeg"
+        ],
+        "SP002": [
+          "https://i.imgur.com/OiVAZbC.jpeg",
+          "https://i.imgur.com/OiVAZbC.jpeg",
+          "https://i.imgur.com/OiVAZbC.jpeg",
+          "https://i.imgur.com/OiVAZbC.jpeg",
+          "https://i.imgur.com/OiVAZbC.jpeg"
+        ],
+        "SP003": [
+          "https://i.imgur.com/LDkHuMP.jpeg",
+          "https://i.imgur.com/LDkHuMP.jpeg",
+          "https://i.imgur.com/LDkHuMP.jpeg",
+          "https://i.imgur.com/LDkHuMP.jpeg",
+          "https://i.imgur.com/LDkHuMP.jpeg"
+        ],
+        "SP004": [
+          "https://i.imgur.com/Stbol3r.png",
+          "https://i.imgur.com/Stbol3r.png",
+          "https://i.imgur.com/Stbol3r.png",
+          "https://i.imgur.com/Stbol3r.png",
+          "https://i.imgur.com/Stbol3r.png"
+        ],
+        "SP005": [
+          "https://i.imgur.com/qKPCSu6.jpeg",
+          "https://i.imgur.com/qKPCSu6.jpeg",
+          "https://i.imgur.com/qKPCSu6.jpeg",
+          "https://i.imgur.com/qKPCSu6.jpeg",
+          "https://i.imgur.com/qKPCSu6.jpeg"
+        ],
+        "SP006": [
+          "https://i.imgur.com/Rr7vzwJ.jpeg",
+          "https://i.imgur.com/Rr7vzwJ.jpeg",
+          "https://i.imgur.com/Rr7vzwJ.jpeg",
+          "https://i.imgur.com/Rr7vzwJ.jpeg",
+          "https://i.imgur.com/Rr7vzwJ.jpeg"
+        ],
+        
+        // Stems
+        "ST001": [
+          "https://i.imgur.com/adfboov.jpeg",  // Using default stem image
+          "https://i.imgur.com/adfboov.jpeg",
+          "https://i.imgur.com/adfboov.jpeg",
+          "https://i.imgur.com/adfboov.jpeg",
+          "https://i.imgur.com/adfboov.jpeg"
+        ],
+        
+        // Cranks
+        "CR001": [
+          "https://i.imgur.com/U3fyA1h.png",
+          "https://i.imgur.com/U3fyA1h.png",
+          "https://i.imgur.com/U3fyA1h.png",
+          "https://i.imgur.com/U3fyA1h.png",
+          "https://i.imgur.com/U3fyA1h.png"
+        ],
+        
+        // Wheelsets
+        "WS001": [
+          "https://i.imgur.com/659Efkd.jpeg",
+          "https://i.imgur.com/659Efkd.jpeg",
+          "https://i.imgur.com/659Efkd.jpeg",
+          "https://i.imgur.com/659Efkd.jpeg",
+          "https://i.imgur.com/659Efkd.jpeg"
+        ],
+        
+        // Frames
+        "FR001": [
+          "https://i.imgur.com/B6cCToB.png",
+          "https://i.imgur.com/B6cCToB.png",
+          "https://i.imgur.com/B6cCToB.png",
+          "https://i.imgur.com/B6cCToB.png",
+          "https://i.imgur.com/B6cCToB.png"
+        ],
+        
+        // Tires
+        "TR001": [
+          "https://i.imgur.com/BZYQSbJ.png",
+          "https://i.imgur.com/BZYQSbJ.png",
+          "https://i.imgur.com/BZYQSbJ.png",
+          "https://i.imgur.com/BZYQSbJ.png",
+          "https://i.imgur.com/BZYQSbJ.png"
+        ],
+        "TR002": [
+          "https://i.imgur.com/yNVPyjr.jpeg",
+          "https://i.imgur.com/yNVPyjr.jpeg",
+          "https://i.imgur.com/yNVPyjr.jpeg",
+          "https://i.imgur.com/yNVPyjr.jpeg",
+          "https://i.imgur.com/yNVPyjr.jpeg"
+        ]
+      ]
+      
+    // Updated helper function to seed products with specific images
     func seedProducts(_ products: [Product], category: String) async throws {
       print("📝 Seeding \(category) products...")
       
@@ -60,15 +379,15 @@ struct DatabaseSeeder: AsyncMigration {
         try await product.save(on: database)
         created += 1
         
-        // Get appropriate image URL
-        let imageUrl = getImageUrlForCategory(product.$category.id)
+        // Get product-specific images or fall back to category default
+        let imageUrls = productImageMap[id] ?? getDefaultImagesForCategory(product.$category.id)
         
-        // Create 5 images for this product immediately
-        for i in 0..<5 {
+        // Create images for this product
+        for (index, imageUrl) in imageUrls.enumerated() {
           let image = ProductImage(
             productId: product.id!,
             imageUrl: imageUrl,
-            displayOrder: i
+            displayOrder: index
           )
           try await image.save(on: database)
         }
@@ -488,6 +807,7 @@ struct DatabaseSeeder: AsyncMigration {
             quantity: 30
         )
     ]
+    
     // Seed each category independently
     try await seedProducts(fullBikes, category: "Full Bikes")
     try await seedProducts(handlebars, category: "Handlebars")
@@ -501,6 +821,12 @@ struct DatabaseSeeder: AsyncMigration {
     try await seedProducts(tires, category: "Tires")
     
     print("✅ Database seeding completed successfully")
+  }
+  
+  // Fallback function for any products without specific images
+  private func getDefaultImagesForCategory(_ categoryId: String) -> [String] {
+    let defaultImage = getImageUrlForCategory(categoryId)
+    return Array(repeating: defaultImage, count: 5)
   }
   
   // Helper function to get appropriate image URL based on category
